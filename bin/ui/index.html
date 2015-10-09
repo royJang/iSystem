@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>iSystem</title>
+<link href="reset.css" type="text/css" rel="stylesheet" />
+<link href="index.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+<h1 class="logo">iSystem</h1>
+
+<div class="main">
+    <div class="nav clearfix">
+        <ul>
+            <li class="active">Hosts</li>
+            <li>环境变量</li>
+        </ul>
+    </div>
+    <div class="stage">
+        <div class="hosts-stage">
+            <div class="default-hosts-group group">
+                <ul class="hosts-list" contenteditable="true">
+                    <script type="text/template" id="hosts-temp">
+                        <% _.each(list, function (el){ %>
+                        <li><%= el %></li>
+                        <% }) %>
+                    </script>
+                </ul>
+            </div>
+            <div class="hosts-groups">
+                <script type="text/template">
+                    <% _.each(group, function ( el ){ %>
+                    <div class="hosts-group group">
+                        <ul class="hosts-list" contenteditable="true">
+                            <% _.each( el, function ( els ){ %>
+                            <li><%= els %></li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <% }) %>
+                </script>
+            </div>
+            <button class="add-more-hosts">添加新的Hosts分组</button>
+        </div>
+    </div>
+</div>
+
+<script src="zepto.js"></script>
+<script src="underscore.js"></script>
+<script src="socket.io.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

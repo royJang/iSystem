@@ -1,0 +1,21 @@
+{
+  "name": "isystem",
+  "version": "0.1.0",
+  "description": "visual hosts & path for multiple platform ( windows , osx  and linux )",
+  "main": "bin/index.js",
+  "scripts": {
+    "start": "node ./bin/index"
+  },
+  "keywords": [
+    "visual",
+    "hosts",
+    "platform"
+  ],
+  "author": "royJang",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^0.24.0",
+    "socket.io": "^1.3.7",
+    "underscore": "^1.8.3"
+  }
+}
