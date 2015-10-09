@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <title>iSystem</title>
-<link href="reset.css" type="text/css" rel="stylesheet" />
-<link href="index.css" type="text/css" rel="stylesheet" />
+<link href="css/reset.css" type="text/css" rel="stylesheet" />
+<link href="css/index.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 
@@ -20,20 +20,22 @@
     <div class="stage">
         <div class="hosts-stage">
             <div class="default-hosts-group group">
-                <ul class="hosts-list" contenteditable="true">
-                    <script type="text/template" id="hosts-temp">
-                        <% _.each(list, function (el){ %>
+                <script type="text/template" id="hosts-temp">
+                    <p class="title"><%= name %></p>
+                    <ul class="hosts-list" contenteditable="true">
+                        <% _.each(content, function (el){ %>
                         <li><%= el %></li>
                         <% }) %>
-                    </script>
-                </ul>
+                    </ul>
+                </script>
             </div>
             <div class="hosts-groups">
-                <script type="text/template">
-                    <% _.each(group, function ( el ){ %>
+                <script type="text/template" id="hosts-group-temp">
+                    <% _.each(others, function ( el ){ %>
                     <div class="hosts-group group">
-                        <ul class="hosts-list" contenteditable="true">
-                            <% _.each( el, function ( els ){ %>
+                        <p class="title" contenteditable="true"><%= el.name %></p>
+                        <ul class="hosts-list" contenteditable="true" data-name="<%= el.name %>">
+                            <% _.each( el.content.split("\n"), function ( els ){ %>
                             <li><%= els %></li>
                             <% }) %>
                         </ul>
@@ -46,9 +48,9 @@
     </div>
 </div>
 
-<script src="zepto.js"></script>
-<script src="underscore.js"></script>
-<script src="socket.io.js"></script>
-<script src="index.js"></script>
+<script src="js/lib/zepto.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/socket.io.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 var fs = require("fs-extra");
 var http = require("http");
 var url = require("url");
+var path = require("path");
 var socket = require("socket.io");
 
 var serverListen = 3005;
@@ -14,18 +15,46 @@ server.listen( serverListen );
 
 io.on("connection", function ( sockets ){
 
-    sockets.on("change-hosts", function (){
-        console.log("hello");
+    var hosts_path = "config/hosts/";
+
+    sockets.on("change-hosts", function ( data ){
+        //创建新分组
+        if( data.newGroup == true ){
+            var $name = path.normalize( hosts_path + "new_hosts_" + new Date().getTime() + ".json" );
+            fs.writeJson( $name, {
+                content : ""
+            }, function (){
+                sockets.emit("change-ok");
+            });
+        }
+        //分组名修改
+        else if( data.oldName && data.newName ){
+
+            var olds = path.normalize( hosts_path + data.oldName + ".json" );
+            var news = path.normalize( hosts_path + data.newName + ".json" );
+
+            fs.copy( olds, news, function (err){
+                if( err ) return console.log(err);
+                fs.remove( olds, function ( err ){
+                    if( err ) return console.log(err);
+                    sockets.emit("change-ok");
+                });
+            })
+        }
     });
 
     sockets.on("change-path", function (){
 
     });
 
-    hosts.get(function (err, data){
-        sockets.emit("get-hosts", {
-            data : data
+    sockets.on("get-hosts", function (){
+        hosts.get(function (err, data){
+            sockets.emit("get-hosts", data);
         })
+    });
+
+    hosts.get(function (err, data){
+        sockets.emit("get-hosts", data);
     })
 });
 
