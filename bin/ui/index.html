@@ -19,25 +19,29 @@
     </div>
     <div class="stage">
         <div class="hosts-stage">
-            <div class="default-hosts-group group">
+            <div class="default-hosts-group group clearfix">
                 <script type="text/template" id="hosts-temp">
                     <p class="title"><%= name %></p>
-                    <ul class="hosts-list" contenteditable="true">
+                    <div class="hosts-list" contenteditable="true" data-name="<%= name %>">
                         <% _.each(content, function (el){ %>
-                        <li><%= el %></li>
+                        <div><%= el %></div>
                         <% }) %>
-                    </ul>
+                    </div>
                 </script>
             </div>
-            <div class="hosts-groups">
+            <div class="hosts-groups clearfix">
                 <script type="text/template" id="hosts-group-temp">
                     <% _.each(others, function ( el ){ %>
-                    <div class="hosts-group group">
+                    <div class="hosts-group group clearfix">
                         <p class="title" contenteditable="true"><%= el.name %></p>
-                        <ul class="hosts-list" contenteditable="true" data-name="<%= el.name %>">
+                        <div class="hosts-list" data-name="<%= el.name %>" contenteditable="true">
                             <% _.each( el.content.split("\n"), function ( els ){ %>
-                            <li><%= els %></li>
+                                <div><%= els %></div>
                             <% }) %>
+                        </div>
+                        <ul class="hosts-func">
+                            <li class="banOrPick" data-name="<%= el.name %>">禁用</li>
+                            <li class="delete" data-name="<%= el.name %>">删除</li>
                         </ul>
                     </div>
                     <% }) %>
@@ -47,6 +51,8 @@
         </div>
     </div>
 </div>
+
+<div class="system-prompt"></div>
 
 <script src="js/lib/zepto.js"></script>
 <script src="js/lib/underscore.js"></script>

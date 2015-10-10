@@ -13,15 +13,14 @@ var io = socket( server );
 
 server.listen( serverListen );
 
-io.on("connection", function ( sockets ){
+var hosts_path = "config/hosts/";
 
-    var hosts_path = "config/hosts/";
+io.on("connection", function ( sockets ){
 
     sockets.on("change-hosts", function ( data ){
         //创建新分组
         if( data.newGroup == true ){
-            var $name = path.normalize( hosts_path + "new_hosts_" + new Date().getTime() + ".json" );
-            fs.writeJson( $name, {
+            fs.writeJson( hosts_normalize("new_hosts_" + new Date().getTime()), {
                 content : ""
             }, function (){
                 sockets.emit("change-ok");
@@ -30,21 +29,36 @@ io.on("connection", function ( sockets ){
         //分组名修改
         else if( data.oldName && data.newName ){
 
-            var olds = path.normalize( hosts_path + data.oldName + ".json" );
-            var news = path.normalize( hosts_path + data.newName + ".json" );
+            var olds = hosts_normalize(data.oldName);
+            var news = hosts_normalize(data.newName);
 
             fs.copy( olds, news, function (err){
-                if( err ) return console.log(err);
+                if( err ) return sockets.emit("system-error", err);
                 fs.remove( olds, function ( err ){
-                    if( err ) return console.log(err);
+                    if( err ) return sockets.emit("system-error", err);
                     sockets.emit("change-ok");
                 });
             })
         }
-    });
-
-    sockets.on("change-path", function (){
-
+        //删除分组
+        else if( data.$delete && data.name ){
+            fs.remove( hosts_normalize(data.name), function ( err ){
+                if( err ) return sockets.emit("system-error", err);
+                refresh_hosts(function (){
+                    sockets.emit("change-ok");
+                });
+            })
+        }
+        //修改分组内容
+        else if ( data.content && data.name ){
+            fs.writeJson( hosts_normalize(data.name), {
+                content : data.content
+            }, function (){
+                refresh_hosts(function (){
+                    sockets.emit("change-ok");
+                });
+            })
+        }
     });
 
     sockets.on("get-hosts", function (){
@@ -53,9 +67,21 @@ io.on("connection", function ( sockets ){
         })
     });
 
-    hosts.get(function (err, data){
-        sockets.emit("get-hosts", data);
-    })
+    function refresh_hosts ( callback ){
+        hosts.get(function ( err, data ){
+            var r = "";
+            data.others.forEach(function ( el, i ){
+                r += el.content;
+            });
+            // r 就是分组内的所有hosts信息
+            data.defaults.content += r;
+            hosts.set( data.defaults.content, function (err){
+                if( err ) return sockets.emit("system-error", err);
+                sockets.emit("change-ok");
+                callback();
+            });
+        });
+    }
 });
 
 var suffixMaps = {
@@ -64,6 +90,10 @@ var suffixMaps = {
     "json" : "application/json",
     "html" : "text/html"
 };
+
+function hosts_normalize ( name ){
+    return path.normalize( hosts_path + name + ".json" );
+}
 
 function handle ( request, response ){
     //解析请求url

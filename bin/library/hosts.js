@@ -1,42 +1,79 @@
 var os = require("os");
 var platform = os.platform();
 var fs = require("fs-extra");
+var path = require("path");
+var shell = require("shelljs/global");
 
 var HostsMaps = {
     "darwin" : "/etc/hosts",
     "win32" : "c:/Windows/System32/drivers/etc/hosts"
 };
 
-function get ( callback ){
-    //读取hosts文件
-    fs.readFile( HostsMaps[ platform ], 'utf-8', function (err, data) {
-        if( err ){
-            return callback( err );
-        }
+var HostsExec = {
+    "darwin" : "source /etc/hosts",
+    "win32" : "ipconfig/flushdns"
+};
 
-        var fl = [];
-        //读取config/hosts下的各组文件
-        fs.readdir("config/hosts", function (err, arr){
+var hostsPath = HostsMaps[ platform ];
+var hostsCommand = HostsExec[ platform ];
+
+var configHostsPath = "config/hosts/",
+    DefaultsName = "Default";
+
+function getOriginHosts ( callback ){
+    var p = path.normalize( configHostsPath + DefaultsName + ".json");
+    fs.exists( p, function ( status ){
+        fs.readFile( status ? p : hostsPath, 'utf-8', function (err, data) {
             if( err ){
                 return callback( err );
             }
-            //读取各组文件
-            arr.forEach(function ( el ){
-                var $fs = fs.readJsonSync("config/hosts/" + el);
-                $fs = JSON.parse(JSON.stringify($fs));
-                //组名就是文件名(当然要删除.json这5个字符),
-                //内容为json里的内容
-                fl.push({
-                    name : el.replace(/\.json/, ""),
-                    content : $fs.content
+            //娌℃湁hosts澶囦唤
+            if( !status ){
+                fs.writeJson( p, {
+                    content : data.toString()
+                } ,function ( err ){
+                    if( err ) return console.log( err );
+                    return callback( null, data );
                 });
+            } else {
+                return callback( null, data );
+            }
+        });
+    });
+}
+
+function get ( callback ){
+
+    getOriginHosts( function ( err, data ){
+
+        if( err ) return console.log( err );
+
+        var fl = [];
+
+        fs.readdir(configHostsPath, function (err, arr){
+
+            if( err ) return callback( err );
+
+            arr.forEach(function ( el ){
+
+                var $fs = fs.readJsonSync( configHostsPath + el);
+                $fs = JSON.parse(JSON.stringify($fs));
+
+                var $n = el.replace(/\.json/, "");
+
+                if( $n !== DefaultsName ){
+                    fl.push({
+                        name : $n,
+                        content : $fs.content
+                    });
+                }
             });
 
             var maps = {};
 
             maps.defaults = {
-                name : "Default Hosts",
-                content : data.toString()
+                name : DefaultsName,
+                content : JSON.parse(data.toString()).content
             };
 
             maps.others = fl;
@@ -46,6 +83,16 @@ function get ( callback ){
     });
 }
 
+function set ( data, callback ){
+    fs.writeFile( hostsPath, data, 'utf-8', function ( err ){
+        if( err ) return callback( err );
+        exec( hostsCommand, function (){
+            return callback( null );
+        });
+    });
+}
+
 module.exports = {
-    get : get
+    get : get,
+    set : set
 };
