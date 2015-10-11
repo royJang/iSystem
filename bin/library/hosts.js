@@ -27,9 +27,8 @@ function getOriginHosts ( callback ){
             if( err ){
                 return callback( err );
             }
-            //没有hosts备份
             if( !status ){
-                fs.writeJson( p, {
+                fs.outputJson( p, {
                     content : data.toString()
                 } ,function ( err ){
                     if( err ) return console.log( err );
@@ -64,7 +63,8 @@ function get ( callback ){
                 if( $n !== DefaultsName ){
                     fl.push({
                         name : $n,
-                        content : $fs.content
+                        content : $fs.content,
+                        ban : $fs.ban
                     });
                 }
             });

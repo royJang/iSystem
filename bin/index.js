@@ -3,6 +3,7 @@ var http = require("http");
 var url = require("url");
 var path = require("path");
 var socket = require("socket.io");
+var _ = require("underscore");
 
 var serverListen = 3005;
 
@@ -21,7 +22,8 @@ io.on("connection", function ( sockets ){
         //创建新分组
         if( data.newGroup == true ){
             fs.writeJson( hosts_normalize("new_hosts_" + new Date().getTime()), {
-                content : ""
+                content : "",
+                ban : 0
             }, function (){
                 sockets.emit("change-ok");
             });
@@ -32,12 +34,9 @@ io.on("connection", function ( sockets ){
             var olds = hosts_normalize(data.oldName);
             var news = hosts_normalize(data.newName);
 
-            fs.copy( olds, news, function (err){
+            fs.rename( olds, news, function (err){
                 if( err ) return sockets.emit("system-error", err);
-                fs.remove( olds, function ( err ){
-                    if( err ) return sockets.emit("system-error", err);
-                    sockets.emit("change-ok");
-                });
+                sockets.emit("change-ok");
             })
         }
         //删除分组
@@ -50,14 +49,17 @@ io.on("connection", function ( sockets ){
             })
         }
         //修改分组内容
-        else if ( data.content && data.name ){
-            fs.writeJson( hosts_normalize(data.name), {
-                content : data.content
-            }, function (){
-                refresh_hosts(function (){
-                    sockets.emit("change-ok");
-                });
-            })
+        else if ( data.name && (typeof data.ban == "number" || data.content )){
+            var _path = hosts_normalize((data.name));
+            delete data.name;
+            fs.readJson( _path, function ( err, json ){
+                _.extend( json, data );
+                fs.writeJson( _path, json, function (){
+                    refresh_hosts(function (){
+                        sockets.emit("change-ok");
+                    });
+                })
+            });
         }
     });
 
@@ -71,7 +73,10 @@ io.on("connection", function ( sockets ){
         hosts.get(function ( err, data ){
             var r = "";
             data.others.forEach(function ( el, i ){
-                r += el.content;
+                //被禁用的分组不写入hosts
+                if( el.ban == 0 ){
+                    r += (el.content + "\n");
+                }
             });
             // r 就是分组内的所有hosts信息
             data.defaults.content += r;

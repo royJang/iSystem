@@ -5,15 +5,14 @@ var hostsStage = $(".hosts-stage");
 
 socket.emit("get-hosts");
 
-//当修改完毕,get-hosts会触发前端模版重绘
 socket.on("change-ok", function (data){
     socket.emit("get-hosts");
+    showConfirm("success!");
 });
 
-//当error
 socket.on("system-error", function (data){
     if( data.errno == -13 ){
-        showConfirm("权限不足, 需要sudo-.-");
+        showConfirm("权限不足，需要sudo命令", true);
     }
 });
 
@@ -48,8 +47,7 @@ hostsStage.on("focus", ".title", function (){
     oldName = $(this).html();
 });
 
-hostsStage.on("blur", ".title", function (){
-
+hostsStage.on("blur", ".title", function (e){
     newName = $(this).html();
     if( newName !== oldName && !!newName ){
         socket.emit("change-hosts", {
@@ -60,6 +58,14 @@ hostsStage.on("blur", ".title", function (){
 
     newName = null;
     oldName = null;
+});
+
+hostsStage.on("keyup", ".title", function (e){
+    var cName = $(this).html();
+    if( cName.length < 1 ){
+        e.preventDefault();
+        return false;
+    }
 });
 
 //delete hosts group
@@ -75,19 +81,40 @@ var ipRe = /((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\
 
 hostsStage.on("blur", ".hosts-list", function (e){
     var theName = $(e.currentTarget).attr("data-name");
-    var theContent = $(this).text()
-        .replace(ipRe, "\n$1")
-        .replace(/\s{2,}/g, "\n");
-
+    var theContent = getHostsText($(this).text());
     socket.emit("change-hosts", {
         name : theName,
         content : theContent
     })
 });
 
-function showConfirm ( data ){
-    $(".system-prompt").html(data).show();
+//禁用 / 启用
+hostsStage.on("click", ".banOrPick", function (e){
+    var target = $(e.currentTarget);
+    var theName = target.attr("data-name");
+    var $ban = target.attr("data-ban");
+    target.toggleClass("ban");
+    var $b = $ban == 0 ? 1 : 0;
+    target.attr("data-ban", $b);
+    socket.emit("change-hosts", {
+        name : theName,
+        ban : $b
+    })
+});
+
+function getHostsText ( text ){
+    return text.replace(ipRe, "\n$1")
+        .replace(/\s{2,}/g, "\n");
+}
+
+function showConfirm ( data, warning ){
+    var _prompt = $(".system-prompt");
+    _prompt.removeClass("warning");
+    if( warning ){
+        _prompt.addClass("warning");
+    }
+    _prompt.html(data).show();
     setTimeout(function (){
-        $(".system-prompt").hide();
+        _prompt.hide();
     }, 2000)
 }

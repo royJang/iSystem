@@ -36,12 +36,17 @@ body {
     border:1px solid #ccc;
     border-radius: 3px;
     padding:15px;
-    background: #eee;
+    background: #f3f3f3;
     box-sizing: border-box;
     width:600px;
     min-height: 65px;
     float: left;
     line-height: 22px;
+}
+
+.stage .hosts-list.ban {
+   text-decoration: line-through;
+    color:#ccc;
 }
 
 .stage .hosts-group .hosts-func {
@@ -55,6 +60,10 @@ body {
 
 .stage .hosts-group .hosts-func li.banOrPick {
     background: #c33; color:#fff; border-color:#c33;
+}
+
+.stage .hosts-group .hosts-func li.banOrPick.ban {
+    background: #008800; border-color:#008800;
 }
 
 .stage .hosts-group .hosts-func li.delete {
@@ -76,9 +85,13 @@ body {
 }
 
 .system-prompt {
-    background: #000; border-radius: 3px; opacity: 0.7;
+    background: #006600; border-radius: 3px; opacity: 0.7;
     position: absolute; top:0; bottom:0; left:0; right:0; margin:auto;
     width:260px; height:60px; line-height: 60px; text-align: center; color:#fff;
     display: none; font-size:18px;
     font-weight: bold;
+}
+
+.system-prompt.warning {
+    background: #cc0000;
 }
