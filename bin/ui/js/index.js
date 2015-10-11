@@ -49,6 +49,7 @@ hostsStage.on("focus", ".title", function (){
 
 hostsStage.on("blur", ".title", function (e){
     newName = $(this).html();
+
     if( newName !== oldName && !!newName ){
         socket.emit("change-hosts", {
             newName : newName,

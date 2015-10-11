@@ -53,6 +53,8 @@ io.on("connection", function ( sockets ){
             var _path = hosts_normalize((data.name));
             delete data.name;
             fs.readJson( _path, function ( err, json ){
+                //io时间差会导致文件没有被快速删除,导致读出undefined
+                if( !json ) return;
                 _.extend( json, data );
                 fs.writeJson( _path, json, function (){
                     refresh_hosts(function (){
