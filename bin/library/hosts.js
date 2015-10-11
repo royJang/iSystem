@@ -22,21 +22,17 @@ var configHostsPath = "config/hosts/",
 
 function getOriginHosts ( callback ){
     var p = path.normalize( configHostsPath + DefaultsName + ".json");
+    //config存在default的时候直接拉去default.json ，否则从 系统hosts文件中拉取
     fs.exists( p, function ( status ){
         fs.readFile( status ? p : hostsPath, 'utf-8', function (err, data) {
-            if( err ){
-                return callback( err );
-            }
-            if( !status ){
-                fs.outputJson( p, {
-                    content : data.toString()
-                } ,function ( err ){
-                    if( err ) return console.log( err );
-                    return callback( null, data );
-                });
-            } else {
+            if( err ) return callback( err );
+            if( status ) return callback( null, data );
+            fs.outputJson( p, {
+                content : data.toString()
+            } ,function ( err ){
+                if( err ) return console.log( err );
                 return callback( null, data );
-            }
+            });
         });
     });
 }
@@ -60,6 +56,7 @@ function get ( callback ){
 
                 var $n = el.replace(/\.json/, "");
 
+                //default文件不加入分组
                 if( $n !== DefaultsName ){
                     fl.push({
                         name : $n,
@@ -84,6 +81,7 @@ function get ( callback ){
 }
 
 function set ( data, callback ){
+    //插入系统hosts文件中
     fs.writeFile( hostsPath, data, 'utf-8', function ( err ){
         if( err ) return callback( err );
         exec( hostsCommand, function (){

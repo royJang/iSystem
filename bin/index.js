@@ -1,11 +1,16 @@
+#! /usr/bin/env node
+
 var fs = require("fs-extra");
 var http = require("http");
 var url = require("url");
 var path = require("path");
 var socket = require("socket.io");
 var _ = require("underscore");
+var program = require('commander');
+var process = require("process");
 
 var serverListen = 3005;
+var version = "0.1.0";
 
 var hosts = require("./library/hosts");
 
@@ -131,5 +136,14 @@ function handle ( request, response ){
         }
     });
 }
+
+//program
+//    .version( version )
+//    .option('-p, --peppers', 'Add peppers')
+//    .option('-P, --pineapple', 'Add pineapple')
+//    .option('-b, --bbq-sauce', 'Add bbq sauce')
+//    .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
+//    .parse(process.argv);
+
 
 
