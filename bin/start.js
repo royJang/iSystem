@@ -1,8 +1,8 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 var program = require('commander');
 var isystem = require("./index");
-var version = "0.1.12";
+var version = "0.1.17";
 var serverListen = 3005;
 
 program

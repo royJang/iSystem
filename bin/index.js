@@ -111,8 +111,6 @@ function handle ( request, response ){
 
     pathname = pathname == "/" ? "index.html" : pathname;
 
-    console.log(process.cwd());
-
     //index路径
     var realPath = path.normalize( process.cwd() + "/bin/ui/" + pathname ); 
 

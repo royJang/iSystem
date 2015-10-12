@@ -14,11 +14,11 @@
 
 ### 帮助
 
-> 使用 `isystem -h` 或 `isystem --help`  来获取帮助
-更改端口 ` (sudo) isystem -p 2000 ` 使用2000端口启动 isystem
+> 使用 `isystem -h` 或 `isystem --help`  来获取帮助         
+更改端口 ` (sudo) isystem -p 2000 ` 使用2000端口启动 isystem           
 
 ### 已经通过测试的平台
 
-> windows 7 			x64
-osx 	Yosemite 	x64
-linux 	ubuntu 		x64
+> windows 7 	    x64    
+osx 	Yosemite 	x64    
+linux 	ubuntu 		x64                 
