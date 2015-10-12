@@ -4,7 +4,6 @@ var url = require("url");
 var path = require("path");
 var socket = require("socket.io");
 var _ = require("underscore");
-var process = require("process");
 
 var hosts = require("./library/hosts");
 
@@ -114,8 +113,6 @@ function handle ( request, response ){
 
     //index路径
     var realPath = path.normalize( "../isystem/bin/ui/" + pathname );
-
-    console.log(realPath);
 
     fs.exists(realPath, function (exists) {
         if (!exists) {

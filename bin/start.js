@@ -7,7 +7,7 @@ var serverListen = 3005;
 
 program
     .version( version )
-    .option('-p, --port <port>', 'set port', function (port){
+    .option('-p, --port <port>', 'set port', function ( port ){
         serverListen = port;
     });
 
