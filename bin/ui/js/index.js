@@ -12,7 +12,7 @@ socket.on("change-ok", function (data){
 
 socket.on("system-error", function (data){
     if( data.errno == -13 ){
-        showConfirm("权限不足，需要sudo命令", true);
+        showConfirm("修改hosts文件需要系统权限!", true);
     }
 });
 
@@ -94,7 +94,6 @@ hostsStage.on("click", ".banOrPick", function (e){
     var target = $(e.currentTarget);
     var theName = target.attr("data-name");
     var $ban = target.attr("data-ban");
-    target.toggleClass("ban");
     var $b = $ban == 0 ? 1 : 0;
     target.attr("data-ban", $b);
     socket.emit("change-hosts", {

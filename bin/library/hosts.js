@@ -10,7 +10,7 @@ var HostsMaps = {
 };
 
 var HostsExec = {
-    "darwin" : "source /etc/hosts",
+    "darwin" : "#/etc/init.d/nscd retart",
     "win32" : "ipconfig/flushdns"
 };
 
@@ -22,11 +22,11 @@ var configHostsPath = "config/hosts/",
 
 function getOriginHosts ( callback ){
     var p = path.normalize( configHostsPath + DefaultsName + ".json");
-    //config´æÔÚdefaultµÄÊ±ºòÖ±½ÓÀ­È¥default.json £¬·ñÔò´Ó ÏµÍ³hostsÎÄ¼þÖÐÀ­È¡
+    //configï¿½ï¿½ï¿½ï¿½defaultï¿½ï¿½Ê±ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½È¥default.json ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ÏµÍ³hostsï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¡
     fs.exists( p, function ( status ){
         fs.readFile( status ? p : hostsPath, 'utf-8', function (err, data) {
             if( err ) return callback( err );
-            if( status ) return callback( null, data );
+            if( status ) return callback( null, data, true);
             fs.outputJson( p, {
                 content : data.toString()
             } ,function ( err ){
@@ -39,7 +39,7 @@ function getOriginHosts ( callback ){
 
 function get ( callback ){
 
-    getOriginHosts( function ( err, data ){
+    getOriginHosts( function ( err, data, origin ){
 
         if( err ) return console.log( err );
 
@@ -56,7 +56,7 @@ function get ( callback ){
 
                 var $n = el.replace(/\.json/, "");
 
-                //defaultÎÄ¼þ²»¼ÓÈë·Ö×é
+                //defaultï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if( $n !== DefaultsName ){
                     fl.push({
                         name : $n,
@@ -70,7 +70,7 @@ function get ( callback ){
 
             maps.defaults = {
                 name : DefaultsName,
-                content : JSON.parse(data.toString()).content
+                content : !origin ? data.toString() : JSON.parse(data.toString()).content
             };
 
             maps.others = fl;
@@ -81,7 +81,7 @@ function get ( callback ){
 }
 
 function set ( data, callback ){
-    //²åÈëÏµÍ³hostsÎÄ¼þÖÐ
+    //ï¿½ï¿½ï¿½ï¿½ÏµÍ³hostsï¿½Ä¼ï¿½ï¿½ï¿½
     fs.writeFile( hostsPath, data, 'utf-8', function ( err ){
         if( err ) return callback( err );
         exec( hostsCommand, function (){

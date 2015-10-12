@@ -1,18 +1,15 @@
 {
   "name": "isystem",
-  "version": "0.1.0",
+  "version": "0.1.12",
   "description": "visual hosts & path for multiple platform ( windows , osx  and linux )",
   "main": "bin/index.js",
   "scripts": {
-    "start": "node ./bin/index"
+    "start": "node bin/index.js"
   },
   "bin" : { "isystem" : "bin/index.js" },
   "keywords": [
-    "visual",
-    "hosts",
-    "platform"
+    "visual hosts"
   ],
-  "preferGlobal": "true",
   "author": "royJang",
   "license": "MIT",
   "dependencies": {

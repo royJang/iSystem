@@ -1,100 +1,99 @@
-#! /usr/bin/env node
-
 var fs = require("fs-extra");
 var http = require("http");
 var url = require("url");
 var path = require("path");
 var socket = require("socket.io");
 var _ = require("underscore");
-var program = require('commander');
 var process = require("process");
-
-var serverListen = 3005;
-var version = "0.1.0";
 
 var hosts = require("./library/hosts");
 
-var server = http.createServer( handle );
-var io = socket( server );
-
-server.listen( serverListen );
-
 var hosts_path = "config/hosts/";
 
-io.on("connection", function ( sockets ){
+function cli ( port ){
 
-    sockets.on("change-hosts", function ( data ){
-        //创建新分组
-        if( data.newGroup == true ){
-            fs.writeJson( hosts_normalize("new_hosts_" + new Date().getTime()), {
-                content : "",
-                ban : 0
-            }, function (){
-                sockets.emit("change-ok");
-            });
-        }
-        //分组名修改
-        else if( data.oldName && data.newName ){
+    var server = http.createServer( handle );
+    var io = socket( server );
 
-            var olds = hosts_normalize(data.oldName);
-            var news = hosts_normalize(data.newName);
+    server.listen( port );
 
-            fs.rename( olds, news, function (err){
-                if( err ) return sockets.emit("system-error", err);
-                sockets.emit("change-ok");
-            })
-        }
-        //删除分组
-        else if( data.$delete && data.name ){
-            fs.remove( hosts_normalize(data.name), function ( err ){
-                if( err ) return sockets.emit("system-error", err);
-                refresh_hosts(function (){
+    console.log("isystem listen on " + port);
+
+    io.on("connection", function ( sockets ){
+
+        sockets.on("change-hosts", function ( data ){
+            //创建新分组
+            if( data.newGroup == true ){
+                fs.writeJson( hosts_normalize("new_hosts_" + new Date().getTime()), {
+                    content : "",
+                    ban : 0
+                }, function (){
                     sockets.emit("change-ok");
                 });
-            })
-        }
-        //修改分组内容
-        else if ( data.name && (typeof data.ban == "number" || data.content )){
-            var _path = hosts_normalize((data.name));
-            delete data.name;
-            fs.readJson( _path, function ( err, json ){
-                //io时间差会导致文件没有被快速删除,导致读出undefined
-                if( !json ) return;
-                _.extend( json, data );
-                fs.writeJson( _path, json, function (){
+            }
+            //分组名修改
+            else if( data.oldName && data.newName ){
+
+                var olds = hosts_normalize(data.oldName);
+                var news = hosts_normalize(data.newName);
+
+                fs.rename( olds, news, function (err){
+                    if( err ) return sockets.emit("system-error", err);
+                    sockets.emit("change-ok");
+                })
+            }
+            //删除分组
+            else if( data.$delete && data.name ){
+                fs.remove( hosts_normalize(data.name), function ( err ){
+                    if( err ) return sockets.emit("system-error", err);
                     refresh_hosts(function (){
                         sockets.emit("change-ok");
                     });
                 })
+            }
+            //修改分组内容
+            else if ( data.name && (typeof data.ban == "number" || data.content )){
+                var _path = hosts_normalize((data.name));
+                delete data.name;
+                fs.readJson( _path, function ( err, json ){
+                    //io时间差会导致文件没有被快速删除,导致读出undefined
+                    if( !json ) return;
+                    _.extend( json, data );
+                    fs.writeJson( _path, json, function (){
+                        refresh_hosts(function (){
+                            sockets.emit("change-ok");
+                        });
+                    })
+                });
+            }
+        });
+
+        sockets.on("get-hosts", function (){
+            hosts.get(function (err, data){
+                sockets.emit("get-hosts", data);
+            })
+        });
+
+        function refresh_hosts ( callback ){
+            hosts.get(function ( err, data ){
+                var r = "";
+                data.others.forEach(function ( el, i ){
+                    //被禁用的分组不写入hosts
+                    if( el.ban == 0 ){
+                        r += (el.content + "\n");
+                    }
+                });
+                // r 就是分组内的所有hosts信息
+                data.defaults.content += r;
+                hosts.set( data.defaults.content, function (err){
+                    if( err ) return sockets.emit("system-error", err);
+                    sockets.emit("change-ok");
+                    callback();
+                });
             });
         }
     });
-
-    sockets.on("get-hosts", function (){
-        hosts.get(function (err, data){
-            sockets.emit("get-hosts", data);
-        })
-    });
-
-    function refresh_hosts ( callback ){
-        hosts.get(function ( err, data ){
-            var r = "";
-            data.others.forEach(function ( el, i ){
-                //被禁用的分组不写入hosts
-                if( el.ban == 0 ){
-                    r += (el.content + "\n");
-                }
-            });
-            // r 就是分组内的所有hosts信息
-            data.defaults.content += r;
-            hosts.set( data.defaults.content, function (err){
-                if( err ) return sockets.emit("system-error", err);
-                sockets.emit("change-ok");
-                callback();
-            });
-        });
-    }
-});
+}
 
 var suffixMaps = {
     "css" : "text/css",
@@ -113,8 +112,10 @@ function handle ( request, response ){
 
     pathname = pathname == "/" ? "index.html" : pathname;
 
-    //拿到当前绝对路径
-    var realPath = process.cwd() + "/ui/" + pathname;
+    //index路径
+    var realPath = path.normalize( "../isystem/bin/ui/" + pathname );
+
+    console.log(realPath);
 
     fs.exists(realPath, function (exists) {
         if (!exists) {
@@ -137,13 +138,6 @@ function handle ( request, response ){
     });
 }
 
-//program
-//    .version( version )
-//    .option('-p, --peppers', 'Add peppers')
-//    .option('-P, --pineapple', 'Add pineapple')
-//    .option('-b, --bbq-sauce', 'Add bbq sauce')
-//    .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
-//    .parse(process.argv);
-
-
-
+module.exports = {
+    cli : cli
+};
