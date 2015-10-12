@@ -1,5 +1,5 @@
 body {
-    font-family: Helvetica Neue, Helvetica, Arial;
+    font-family :Monospace, Helvetica Neue, Helvetica, Arial;
     -webkit-font-smoothing:antialiased;
     color:#333;
 }
@@ -39,7 +39,7 @@ body {
     background: #f3f3f3;
     box-sizing: border-box;
     width:600px;
-    min-height: 65px;
+    min-height: 76px;
     float: left;
     line-height: 22px;
 }
@@ -54,7 +54,7 @@ body {
 }
 
 .stage .hosts-group .hosts-func li {
-    padding:6px 7px; text-align: center; border:1px solid #ccc; background: #fff;
+    padding:7.3px 7px; text-align: center; border:1px solid #ccc; background: #fff;
     border-radius: 3px; margin:0 0 5px 10px; cursor: pointer; font-size: 14px;
 }
 

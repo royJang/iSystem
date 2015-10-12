@@ -16,7 +16,7 @@ function cli ( port ){
 
     server.listen( port );
 
-    console.log("isystem listen on " + port);
+    console.log("iSystem listen at " + port);
 
     io.on("connection", function ( sockets ){
 
@@ -111,8 +111,10 @@ function handle ( request, response ){
 
     pathname = pathname == "/" ? "index.html" : pathname;
 
+    console.log(process.cwd());
+
     //index路径
-    var realPath = path.normalize( "../isystem/bin/ui/" + pathname );
+    var realPath = path.normalize( process.cwd() + "/bin/ui/" + pathname ); 
 
     fs.exists(realPath, function (exists) {
         if (!exists) {

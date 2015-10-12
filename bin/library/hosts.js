@@ -6,12 +6,14 @@ var shell = require("shelljs/global");
 
 var HostsMaps = {
     "darwin" : "/etc/hosts",
-    "win32" : "c:/Windows/System32/drivers/etc/hosts"
+    "win32" : "c:/Windows/System32/drivers/etc/hosts",
+    "linux" : "/etc/hosts"
 };
 
 var HostsExec = {
     "darwin" : "#/etc/init.d/nscd retart",
-    "win32" : "ipconfig/flushdns"
+    "win32" : "ipconfig/flushdns",
+    "linux" : "#/etc/init.d/nscd retart"
 };
 
 var hostsPath = HostsMaps[ platform ];
