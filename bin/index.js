@@ -112,7 +112,7 @@ function handle ( request, response ){
     pathname = pathname == "/" ? "index.html" : pathname;
 
     //index路径
-    var realPath = path.normalize( process.cwd() + "/bin/ui/" + pathname ); 
+    var realPath = path.normalize( "./bin/ui/" + pathname );
 
     fs.exists(realPath, function (exists) {
         if (!exists) {
