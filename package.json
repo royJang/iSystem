@@ -1,10 +1,10 @@
 {
   "name": "isystem",
-  "version": "0.1.19",
+  "version": "0.2.13",
   "description": "visual hosts & path for multiple platform ( windows , osx  and linux )",
-  "main": "bin/start.js",
+  "main": "./bin/start.js",
   "scripts": {
-    "start": "node bin/start.js"
+    "start": "node ./bin/start.js"
   },
   "bin" : { "isystem" : "./bin/start.js" },
   "keywords": [

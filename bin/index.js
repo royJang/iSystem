@@ -111,10 +111,11 @@ function handle ( request, response ){
 
     pathname = pathname == "/" ? "index.html" : pathname;
 
-    //index路径
-    var realPath = path.normalize( "./bin/ui/" + pathname );
+    var realPath = pathname;
 
+    //index路径
     fs.exists(realPath, function (exists) {
+
         if (!exists) {
             response.writeHead(404, {'Content-Type': 'text/plain'});
             response.end();
