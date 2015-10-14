@@ -7,6 +7,7 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 
 var hosts = require("./library/hosts");
+var vm = require("./library/plugins");
 var hosts_path = "config/hosts/";
 
 app.use(express.static(__dirname + '/ui'));
@@ -98,6 +99,11 @@ function cli ( port ){
                 });
             });
         }
+
+        //about plugins
+        sockets.on("code-run", function ( data ){
+            sockets.emit("code-run-result", vm.get( data ));
+        });
     });
 }
 

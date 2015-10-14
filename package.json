@@ -1,7 +1,7 @@
 {
   "name": "isystem",
   "version": "0.3.2",
-  "description": "visual hosts & path for multiple platform ( windows , osx  and linux )",
+  "description": "visual hosts for multiple platform ( windows , osx  and linux )",
   "main": "./bin/start.js",
   "scripts": {
     "start": "node ./bin/start.js"
