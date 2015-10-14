@@ -17,8 +17,8 @@ function cli ( port ){
         res.sendFile(__dirname + "/ui/host.html");
     });
 
-    app.get("/env", function (req, res){
-        res.sendFile(__dirname + "/ui/env.html");
+    app.get("/plugins", function (req, res){
+        res.sendFile(__dirname + "/ui/plugins.html");
     });
 
     http.listen( port ,function (){

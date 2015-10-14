@@ -3,7 +3,7 @@
 var fs = require("fs-extra");
 var program = require('commander');
 var isystem = require("./index");
-var version = "0.3.1";
+var version = "0.3.2";
 var serverListen = 3005;
 
 program

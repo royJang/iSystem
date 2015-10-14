@@ -11,7 +11,7 @@ var HostsMaps = {
 };
 
 var HostsExec = {
-    "darwin" : "#/etc/init.d/nscd retart",
+    "darwin" : "(discoveryutil udnsflushcache;killall -HUP mDNSResponder;dscacheutil -flushcache)",
     "win32" : "ipconfig/flushdns",
     "linux" : "#/etc/init.d/nscd retart"
 };

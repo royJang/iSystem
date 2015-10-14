@@ -1,0 +1,35 @@
+.plugin-box {
+    width:1000px; height:770px;
+    z-index: 999; margin:auto; border:1px solid #ccc; border-radius: 3px; background: #fff;
+}
+
+.plugin-box .pluginName {
+    width:950px; margin:20px auto; outline: none; padding:7px 10px;
+    border-radius: 3px; border:1px solid #ccc; background: #2c2c2c; color:#fff;
+    display: block; font-size: 16px;
+}
+.plugin-box .plugin-code-area {
+    width:950px; margin:auto; border:1px solid #ccc;
+}
+
+.plugin-box .plugin-code-area > .pluginCode .pluginResult {
+    float: left; text-align: left;
+}
+
+.plugin-box .code-run-wrap {
+    margin:5px; text-align: right;
+}
+
+.plugin-box .code-run-wrap .code-run, .plguin-btn-wrap button {
+    width:100px; height:35px; margin-right:20px;
+    text-align: center; background: #fff; border-radius: 3px; border:1px solid #ccc;
+    outline: none;
+}
+
+.plugin-box .pluginResult {
+    width:950px; margin:auto; border:1px solid #ccc;
+}
+
+.plguin-btn-wrap {
+    margin:5px; text-align: right;
+}

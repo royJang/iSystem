@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>iSystem - hosts </title>
+    <link href="css/reset.css" type="text/css" rel="stylesheet" />
+    <link href="css/common.css" type="text/css" rel="stylesheet" />
+    <link href="css/index.css" type="text/css" rel="stylesheet" />
+    <link href="css/plugins.css" type="text/css" rel="stylesheet" />
+    <link href="css/codemirror.css" type="text/css" rel="stylesheet" />
+    <link href="css/mbo.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+<h1 class="logo">iSystem</h1>
+
+<div class="main">
+    <div class="nav clearfix">
+        <ul>
+            <li><a href="/">Hosts</a></li>
+            <li class="active"><a href="/plugins">Plugins</a></li>
+        </ul>
+    </div>
+    <div class="stage">
+        <div class="plugin-wrap">
+            <div class="plugin-mask"></div>
+            <div class="plugin-box">
+                <input type="text" placeholder="the plugins name" class="pluginName"/>
+                <div class="plugin-code-area clearfix">
+                    <textarea class="pluginCode">function update () {
+
+}</textarea>
+                </div>
+                <div class="code-run-wrap">
+                    <button title="<Command> + <Enter>" class="code-run">Run</button>
+                </div>
+                <div class="pluginResult">
+                    <textarea class="pluginResultCode"></textarea>
+                </div>
+                <div class="plguin-btn-wrap">
+                    <button class="share-plugins">分享插件</button><button class="add-plugins">添加插件</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+<script src="js/lib/zepto.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/socket.io.js"></script>
+<script src="js/lib/codemirror.js"></script>
+<script src="js/lib/simple.js"></script>
+<script src="js/lib/javascript.js"></script>
+<script src="js/plugins.js"></script>
+</body>
+</html>
+
