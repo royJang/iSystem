@@ -2,7 +2,7 @@
 
 var program = require('commander');
 var isystem = require("./index");
-var version = "0.2.13";
+var version = "0.3.0";
 var serverListen = 3005;
 
 program

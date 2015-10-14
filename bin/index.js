@@ -1,22 +1,25 @@
 var fs = require("fs-extra");
-var http = require("http");
-var url = require("url");
 var path = require("path");
-var socket = require("socket.io");
 var _ = require("underscore");
+var express = require("express");
+var app = express();
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
 
 var hosts = require("./library/hosts");
-
 var hosts_path = "config/hosts/";
+
+app.use(express.static(__dirname + '/ui'));
 
 function cli ( port ){
 
-    var server = http.createServer( handle );
-    var io = socket( server );
+    app.get("/", function ( req, res ){
+        res.sendFile(__dirname + "/index.html");
+    });
 
-    server.listen( port );
-
-    console.log("iSystem listen at " + port);
+    http.listen( port ,function (){
+        console.log("iSystem listen at http://localhost:" + port);
+    });
 
     io.on("connection", function ( sockets ){
 
@@ -94,46 +97,8 @@ function cli ( port ){
     });
 }
 
-var suffixMaps = {
-    "css" : "text/css",
-    "js" : "text/javascript",
-    "json" : "application/json",
-    "html" : "text/html"
-};
-
 function hosts_normalize ( name ){
     return path.normalize( hosts_path + name + ".json" );
-}
-
-function handle ( request, response ){
-    //解析请求url
-    var pathname = url.parse(request.url).pathname;
-
-    pathname = pathname == "/" ? "index.html" : pathname;
-
-    var realPath = pathname;
-
-    //index路径
-    fs.exists(realPath, function (exists) {
-
-        if (!exists) {
-            response.writeHead(404, {'Content-Type': 'text/plain'});
-            response.end();
-        } else {
-            fs.readFile(realPath, "binary", function(err, file) {
-                if (err) {
-                    response.writeHead(500, {"Content-Type": "text/plain"});
-                    response.end(err);
-                } else {
-                    var r = realPath.split(".");
-                    var suffix = suffixMaps[r[r.length - 1]];
-                    response.writeHead(200, {"Content-Type" : suffix});
-                    response.write(file, "binary");
-                    response.end();
-                }
-            });
-        }
-    });
 }
 
 module.exports = {

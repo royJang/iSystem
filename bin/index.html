@@ -1,10 +1,10 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8" />
-<title>iSystem</title>
-<link href="ui/css/reset.css" type="text/css" rel="stylesheet" />
-<link href="ui/css/index.css" type="text/css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title>iSystem</title>
+    <link href="css/reset.css" type="text/css" rel="stylesheet" />
+    <link href="css/index.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 
@@ -36,7 +36,7 @@
                         <p class="title" contenteditable="true"><%= el.name %></p>
                         <div class="hosts-list <%= el.ban == 1 ? 'ban' : '' %>" data-name="<%= el.name %>" contenteditable="true">
                             <% _.each( el.content.split("\n"), function ( els ){ %>
-                                <div><%= els %></div>
+                            <div><%= els %></div>
                             <% }) %>
                         </div>
                         <ul class="hosts-func">
@@ -56,9 +56,9 @@
 
 <div class="system-prompt"></div>
 
-<script src="ui/js/lib/zepto.js"></script>
-<script src="ui/js/lib/underscore.js"></script>
-<script src="ui/js/lib/socket.io.js"></script>
-<script src="ui/js/index.js"></script>
+<script src="js/lib/zepto.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/socket.io.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
