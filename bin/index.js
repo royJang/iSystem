@@ -14,7 +14,11 @@ app.use(express.static(__dirname + '/ui'));
 function cli ( port ){
 
     app.get("/", function ( req, res ){
-        res.sendFile(__dirname + "/index.html");
+        res.sendFile(__dirname + "/ui/host.html");
+    });
+
+    app.get("/env", function (req, res){
+        res.sendFile(__dirname + "/ui/env.html");
     });
 
     http.listen( port ,function (){

@@ -1,18 +1,19 @@
-var socket = io.connect(location.href);
+var socket = io.connect(location.host);
 var defaultsHostsTpl = $("#hosts-temp").html();
 var othersHostsTpl = $("#hosts-group-temp").html();
 var hostsStage = $(".hosts-stage");
 
+//hosts相关
 socket.emit("get-hosts");
 
-socket.on("change-ok", function (data){
+socket.on("change-ok", function (){
     socket.emit("get-hosts");
     showConfirm("success!");
 });
 
 socket.on("system-error", function (data){
     if( data.errno == -13 ){
-        showConfirm("修改hosts文件需要系统权限!", true);
+        showConfirm("需要系统权限!", true);
     }
 });
 
@@ -44,11 +45,11 @@ var oldName = null;
 var newName = null;
 
 hostsStage.on("focus", ".title", function (){
-    oldName = $(this).html();
+    oldName = $(this).text();
 });
 
 hostsStage.on("blur", ".title", function (e){
-    newName = $(this).html();
+    newName = $(this).text();
 
     if( newName !== oldName && !!newName ){
         socket.emit("change-hosts", {
@@ -59,14 +60,6 @@ hostsStage.on("blur", ".title", function (e){
 
     newName = null;
     oldName = null;
-});
-
-hostsStage.on("keyup", ".title", function (e){
-    var cName = $(this).html();
-    if( cName.length < 1 ){
-        e.preventDefault();
-        return false;
-    }
 });
 
 //delete hosts group

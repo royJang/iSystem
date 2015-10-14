@@ -1,44 +1,11 @@
-body {
-    font-family :Monospace, Helvetica Neue, Helvetica, Arial;
-    -webkit-font-smoothing:antialiased;
-    color:#333;
-}
-
-.logo {
-    font-size: 44px;
-    margin:10px auto; width:800px;
-}
-
-.main {
-    margin:10px auto; width:800px;
-}
-
-.main .nav {
-    margin:10px 0; box-sizing: border-box;
-}
-
-.main .nav li {
-    float: left; padding:10px 15px;  font-size: 16px;
-    border-radius: 3px; border:1px solid #ccc; margin:5px;
-    cursor: pointer;
-}
-
-.main .nav li.active {
-    background: #0b97c4; color:#fff; border-color:#0b97c4;
-}
-
-.stage {
-    margin-top:20px; box-sizing: border-box;
-}
-
 .stage .hosts-list {
+    width:600px;
     outline: none;
     border:1px solid #ccc;
     border-radius: 3px;
     padding:15px;
-    background: #f3f3f3;
     box-sizing: border-box;
-    width:600px;
+    background: #f3f3f3;
     min-height: 76px;
     float: left;
     line-height: 22px;
@@ -54,8 +21,9 @@ body {
 }
 
 .stage .hosts-group .hosts-func li {
-    padding:7.3px 7px; text-align: center; border:1px solid #ccc; background: #fff;
+    text-align: center; border:1px solid #ccc; background: #fff;
     border-radius: 3px; margin:0 0 5px 10px; cursor: pointer; font-size: 14px;
+    height:35px; line-height: 35px;
 }
 
 .stage .hosts-group .hosts-func li.banOrPick {
