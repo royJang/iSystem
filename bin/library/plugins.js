@@ -1,16 +1,27 @@
 var vm = require("vm");
+var sandbox = {
+    require : require,
+    callback : callback
+};
+vm.createContext(sandbox);
 
-function getVmResult ( data ){
-	var sandbox = {
-		require : require
-	};
-	vm.createContext(sandbox);
+var $socket = null;
+
+function getVmResult ( sockets, data ){
 	try{
-		var r = vm.runInContext(String(data), sandbox);
-		return typeof r == "object" ? JSON.stringify(r) : String(r);
-	}catch(e){};
+        vm.runInContext(String(data), sandbox);
+        $socket = sockets;
+    }catch(e){}
+}
+
+function callback(){
+    var p = [];
+    for(var i in arguments){
+        p.push( typeof arguments[i] == "object" ? JSON.stringify(arguments[i]) : String(arguments[i]) );
+    }
+    $socket.emit("code-run-result", p.join(","));
 }
 
 module.exports = {
 	get : getVmResult
-}	
+};

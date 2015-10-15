@@ -45,6 +45,10 @@
                                 <%= el.ban ? "开启" : "禁用" %>
                             </li>
                             <li class="delete" data-name="<%= el.name %>">删除</li>
+                            <% if( !!localStorage.getItem(el.name) ){ %>
+                                <li class="modify"><a href="/plugins#<%= el.name %>">修改脚本</a></li>
+                                <li class="update" data-name="<%= el.name %>">更新</li>
+                            <% } %>
                         </ul>
                     </div>
                     <% }) %>

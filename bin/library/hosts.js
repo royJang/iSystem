@@ -11,9 +11,9 @@ var HostsMaps = {
 };
 
 var HostsExec = {
-    "darwin" : "(discoveryutil udnsflushcache;killall -HUP mDNSResponder;dscacheutil -flushcache)",
+    "darwin" : "dscacheutil -flushcache;discoveryutil udnsflushcache;killall -HUP mDNSResponder; echo success!",
     "win32" : "ipconfig/flushdns",
-    "linux" : "#/etc/init.d/nscd retart"
+    "linux" : "#/etc/init.d/nscd retart; systemctl restart NetworkManager"
 };
 
 var hostsPath = HostsMaps[ platform ];

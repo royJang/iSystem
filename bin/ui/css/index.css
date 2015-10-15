@@ -9,6 +9,8 @@
     min-height: 76px;
     float: left;
     line-height: 22px;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .stage .hosts-list.ban {
@@ -34,7 +36,16 @@
     background: #008800; border-color:#008800;
 }
 
-.stage .hosts-group .hosts-func li.delete {
+.stage .hosts-group .hosts-func li a {
+    color:#333; text-decoration: none;
+}
+
+.stage .hosts-group .hosts-func li.update {
+    color:#333; text-decoration: none;
+}
+
+.stage .hosts-group .hosts-func li[disabled=true] {
+    color:#333; background: #ccc; cursor: not-allowed;
 }
 
 .stage .add-more-hosts{

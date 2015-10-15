@@ -31,8 +31,8 @@ function cli ( port ){
         sockets.on("change-hosts", function ( data ){
             //创建新分组
             if( data.newGroup == true ){
-                fs.writeJson( hosts_normalize("new_hosts_" + new Date().getTime()), {
-                    content : "",
+                fs.writeJson( data.name ? hosts_normalize(data.name) : hosts_normalize("new_hosts_" + new Date().getTime()), {
+                    content : data.content || "",
                     ban : 0
                 }, function (){
                     sockets.emit("change-ok");
@@ -102,7 +102,7 @@ function cli ( port ){
 
         //about plugins
         sockets.on("code-run", function ( data ){
-            sockets.emit("code-run-result", vm.get( data ));
+            vm.get( sockets, data );
         });
     });
 }

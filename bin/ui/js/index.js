@@ -95,6 +95,37 @@ hostsStage.on("click", ".banOrPick", function (e){
     })
 });
 
+var theUpdateHostsGroup;
+var theTarget;
+
+hostsStage.on("click", ".update", function (e){
+
+    var target = $(e.currentTarget);
+    var theName = target.attr("data-name");
+    var theScript = localStorage.getItem(theName);
+
+    theUpdateHostsGroup = theName;
+    theTarget = target;
+
+    target.text("更新中").attr("disabled", "disabled");
+
+    //更新hosts
+    socket.emit("code-run", theScript);
+});
+
+//返回更新后的hosts
+socket.on("code-run-result", function ( data ){
+    if( !!theUpdateHostsGroup ){
+        socket.emit("change-hosts", {
+            name : theUpdateHostsGroup,
+            content : data
+        });
+        theTarget.removeAttr("disabled");
+        theUpdateHostsGroup = null;
+        theTarget = null;
+    }
+});
+
 function getHostsText ( text ){
     return text.replace(ipRe, "\n$1")
         .replace(/\s{2,}/g, "\n");
