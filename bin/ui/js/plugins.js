@@ -44,27 +44,19 @@ codeReusultEditor.setOption("theme", "mbo");
 
 var pluginName = $(".pluginName");
 
-function get$name(){
-    return location.hash.slice(1);
-}
-
-var $name = get$name();
-
 //修改
-if( !!$name ){
-    pluginName.val( $name );
-}
+pluginName.val(get$name());
 
+//set title in location.hash
 pluginName.on("keyup", function (){
     location.hash = "#" + pluginName.val();
 });
 
-var v = localStorage.getItem(get$name());
-!!v && editor.setValue( v );
+//
+editor.setValue( getStore() );
 
 editor.on("change", function (e){
-    var val = editor.getValue();
-    !!val && val.length > 0 && !!pluginName.val() && localStorage.setItem( pluginName.val(), val );
+    setStore();
 });
 
 //当运行结果返回
@@ -76,13 +68,14 @@ var $complileText = "Compile...";
 
 //运行代码
 $(".code-run").on("click", function (){
-    var val = editor.getValue();
-    socket.emit("code-run", val);
     codeReusultEditor.setValue($complileText);
+    socket.emit("code-run", getStore());
+    setStore();
 });
 
 //添加插件
 $(".add-plugins").on("click", function (){
+
     var val = codeReusultEditor.getValue();
 
     if( val.indexOf($complileText) > -1 || val.length < 1 ) return;
@@ -95,3 +88,19 @@ $(".add-plugins").on("click", function (){
 
     location.href = "/";
 });
+
+function setStore (){
+    var v = editor.getValue(),
+        s = get$name();
+    v && v.length > 0 
+    && s && s.length > 0 
+    && localStorage.setItem( s, v );
+}
+
+function getStore (){
+    return !!get$name() ? ( localStorage.getItem(get$name()) || "") : "";
+}
+
+function get$name(){
+    return location.hash.slice(1);
+}
