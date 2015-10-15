@@ -74,6 +74,8 @@ hostsStage.on("click", ".delete", function (e){
 var ipRe = /((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5]))/g;
 
 hostsStage.on("blur", ".hosts-list", function (e){
+    var target = $(e.currentTarget);
+    if( target.hasClass("noModify") ) return;
     var theName = $(e.currentTarget).attr("data-name");
     var theContent = getHostsText($(this).text());
     socket.emit("change-hosts", {
