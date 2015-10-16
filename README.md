@@ -33,7 +33,7 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
 > `3.` 点击  `运行` 按钮， 脚本的运行结果会显示在下方,     
 > `4.` 返回结果正确后，请继续点击 `添加插件` 按钮，     
-> `5.`之后如有Hosts的更新，只需点击`更新` 按钮,就会自动更新最新的 Hosts      
+> `5.`之后如有Hosts的更新，只需点击`更新` 按钮,就会自动更新最新的 Hosts          
 
 ### iSystem插件支持哪些 Node.js 库 ？
 
