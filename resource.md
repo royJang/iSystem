@@ -10,7 +10,7 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts", function
 });	
 ```
 
-> 来源：https://github.com/highsea/Hosts/blob/master/hosts
+> 来源：https://github.com/highsea/Hosts
 
 ```
 var cheerio = require("cheerio");

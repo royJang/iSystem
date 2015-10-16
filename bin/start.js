@@ -3,7 +3,8 @@
 var fs = require("fs-extra");
 var program = require('commander');
 var isystem = require("./index");
-var version = "0.4.1";
+var config = require("./library/config");
+var version = "0.4.2";
 var serverListen = 3005;
 
 program
@@ -12,7 +13,7 @@ program
         serverListen = port;
     })
     .option('-c --clear', 'clear config files', function (){
-        fs.remove("config/", function (err){
+        fs.remove(config["backup_hosts"], function (err){
             if( err ) return console.log(err);
             console.log("clear success!");
         });

@@ -9,7 +9,9 @@ var io = require("socket.io")(http);
 
 var hosts = require("./library/hosts");
 var vm = require("./library/plugins");
-var hosts_path = "config/hosts/";
+var config = require("./library/config");
+
+var hosts_path = config["backup_hosts"];
 
 app.use(express.static(__dirname + '/ui'));
 
@@ -20,7 +22,7 @@ app.use(function (req,res, next) {
     //监听domain的错误事件
     d.on('error', function (err) {
         res.statusCode = 500;
-        res.json({sucess:false, messag: '服务器异常'});
+        res.json({sucess:false, message: '服务器异常'});
         d.dispose();
     });
 

@@ -1,30 +1,17 @@
-var os = require("os");
-var platform = os.platform();
 var fs = require("fs-extra");
 var path = require("path");
 var shell = require("shelljs/global");
+var config = require("./config");
 
-var HostsMaps = {
-    "darwin" : "/etc/hosts",
-    "win32" : "c:/Windows/System32/drivers/etc/hosts",
-    "linux" : "/etc/hosts"
-};
+var hostsPath = config["system_hosts"];
+var hostsCommand = config["command"];
 
-var HostsExec = {
-    "darwin" : "dscacheutil -flushcache;discoveryutil udnsflushcache;killall -HUP mDNSResponder; echo success!",
-    "win32" : "ipconfig/flushdns",
-    "linux" : "#/etc/init.d/nscd retart; systemctl restart NetworkManager"
-};
-
-var hostsPath = HostsMaps[ platform ];
-var hostsCommand = HostsExec[ platform ];
-
-var configHostsPath = "config/hosts/",
+var configHostsPath = config["backup_hosts"],
     DefaultsName = "Default";
 
 function getOriginHosts ( callback ){
     var p = path.normalize( configHostsPath + DefaultsName + ".json");
-    //config����default��ʱ��ֱ����ȥdefault.json ������� ϵͳhosts�ļ�����ȡ
+    //没有hosts备份文件，就从系统的hosts拉取
     fs.exists( p, function ( status ){
         fs.readFile( status ? p : hostsPath, 'utf-8', function (err, data) {
             if( err ) return callback( err );
@@ -83,7 +70,7 @@ function get ( callback ){
 }
 
 function set ( data, callback ){
-    //����ϵͳhosts�ļ���
+    //写入hosts
     fs.writeFile( hostsPath, data, 'utf-8', function ( err ){
         if( err ) return callback( err );
         exec( hostsCommand, function (){
