@@ -1,10 +1,6 @@
 {
   "name": "isystem",
-<<<<<<< HEAD
-  "version": "0.4.0",
-=======
-  "version": "0.3.3",
->>>>>>> e2fc523e7fd464380fefc80c3012dc1df71c33d0
+  "version": "0.4.1",
   "description": "visual hosts for multiple platform ( windows , osx  and linux )",
   "main": "./bin/start.js",
   "scripts": {

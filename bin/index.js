@@ -1,6 +1,7 @@
 var fs = require("fs-extra");
 var path = require("path");
 var _ = require("underscore");
+var domain = require('domain');
 var express = require("express");
 var app = express();
 var http = require("http").Server(app);
@@ -11,6 +12,22 @@ var vm = require("./library/plugins");
 var hosts_path = "config/hosts/";
 
 app.use(express.static(__dirname + '/ui'));
+
+//引入一个domain的中间件，将每一个请求都包裹在一个独立的domain中
+//domain来处理异常
+app.use(function (req,res, next) {
+    var d = domain.create();
+    //监听domain的错误事件
+    d.on('error', function (err) {
+        res.statusCode = 500;
+        res.json({sucess:false, messag: '服务器异常'});
+        d.dispose();
+    });
+
+    d.add(req);
+    d.add(res);
+    d.run(next);
+});
 
 function cli ( port ){
 

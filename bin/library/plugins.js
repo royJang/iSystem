@@ -1,17 +1,38 @@
 var vm = require("vm");
+var domain = require("domain");
+var EventEmitter = require('events').EventEmitter;
+
 var sandbox = {
     require : require,
-    callback : callback
+    callback : callback,
+    console : console
 };
 vm.createContext(sandbox);
 
 var $socket = null;
 
 function getVmResult ( sockets, data ){
-	try{
+
+    $socket = sockets;
+
+    var d = domain.create();
+    var emitter = new EventEmitter();
+
+    d.on("error", function ( err ){
+        emitter.emit("error", new Error(err));
+    });
+
+    d.add(emitter);
+
+    emitter.on("error", function (err){
+        sockets.emit("system-error", {
+            vmCodeError : err.message
+        });
+    });
+
+    d.run(function (){
         vm.runInContext(String(data), sandbox);
-        $socket = sockets;
-    }catch(e){}
+    });
 }
 
 function callback(){

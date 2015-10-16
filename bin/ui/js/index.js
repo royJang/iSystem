@@ -6,17 +6,6 @@ var hostsStage = $(".hosts-stage");
 //hosts相关
 socket.emit("get-hosts");
 
-socket.on("change-ok", function (){
-    socket.emit("get-hosts");
-    showConfirm("success!");
-});
-
-socket.on("system-error", function (data){
-    if( data.errno == -13 ){
-        showConfirm("需要系统权限!", true);
-    }
-});
-
 socket.on("get-hosts", function ( data ){
 
     //the default hosts
@@ -131,16 +120,4 @@ socket.on("code-run-result", function ( data ){
 function getHostsText ( text ){
     return text.replace(ipRe, "\n$1")
         .replace(/\s{2,}/g, "\n");
-}
-
-function showConfirm ( data, warning ){
-    var _prompt = $(".system-prompt");
-    _prompt.removeClass("warning");
-    if( warning ){
-        _prompt.addClass("warning");
-    }
-    _prompt.html(data).show();
-    setTimeout(function (){
-        _prompt.hide();
-    }, 2000)
 }

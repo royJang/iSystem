@@ -65,7 +65,7 @@
 
 .system-prompt {
     background: #006600; border-radius: 3px; opacity: 0.7;
-    position: absolute; top:0; bottom:0; left:0; right:0; margin:auto;
+    position: fixed; top:0; bottom:0; left:0; right:0; margin:auto;
     width:260px; height:60px; line-height: 60px; text-align: center; color:#fff;
     display: none; font-size:18px;
     font-weight: bold; z-index: 99999;

@@ -22,8 +22,12 @@
 
 .plugin-box .code-run-wrap .code-run, .plguin-btn-wrap button {
     width:100px; height:35px; margin-right:20px;
-    text-align: center; background: #fff; border-radius: 3px; border:1px solid #ccc;
-    outline: none;
+    text-align: center; border-radius: 3px; border:1px solid #ccc;
+    outline: none; background: #fff;
+}
+
+.plugin-box .code-run-wrap .code-run {
+    background: #008800; color:#fff; font-size: 14px;
 }
 
 .plugin-box .pluginResult {
