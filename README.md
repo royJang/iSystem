@@ -37,15 +37,15 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
 ### iSystem插件支持哪些 Node.js 库 ？
 
-使用 如： `var _ = require("underscore");`  来引用underscore
-
 ```
 "cheerio"    :   "^0.19.0"
-"commander"  :   "^2.8.1"
 "fs-extra"   :   "^0.24.0"
 "request"    :   "^2.65.0"
 "underscore" :   "^1.8.3"
 ```
+
+使用 如： `var _ = require("underscore");`  来引用underscore
+
 
 ### 一些优质的 hosts 来源 及 脚本
 
