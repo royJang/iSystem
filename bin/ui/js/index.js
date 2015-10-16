@@ -2,6 +2,7 @@ var socket = io.connect(location.host);
 var defaultsHostsTpl = $("#hosts-temp").html();
 var othersHostsTpl = $("#hosts-group-temp").html();
 var hostsStage = $(".hosts-stage");
+var updateLock = true;
 
 //hosts相关
 socket.emit("get-hosts");
@@ -21,6 +22,8 @@ socket.on("get-hosts", function ( data ){
     $(".hosts-groups").html(_.template(othersHostsTpl)({
         others : others
     }));
+
+    updateLock = true;
 });
 
 //add more hosts group
@@ -86,35 +89,31 @@ hostsStage.on("click", ".banOrPick", function (e){
     })
 });
 
-var theUpdateHostsGroup;
-var theTarget;
-
 hostsStage.on("click", ".update", function (e){
+
+    if( !updateLock ) return showConfirm("更新中, 请稍后!");
+
+    updateLock = false;
 
     var target = $(e.currentTarget);
     var theName = target.attr("data-name");
     var theScript = localStorage.getItem(theName);
 
-    theUpdateHostsGroup = theName;
-    theTarget = target;
-
     target.text("更新中").attr("disabled", "disabled");
+
+    $("." + theName + "_container").html('<div class="xless-loading5"><div></div><div></div><div></div></div>');
 
     //更新hosts
     socket.emit("code-run", theScript);
-});
 
-//返回更新后的hosts
-socket.on("code-run-result", function ( data ){
-    if( !!theUpdateHostsGroup ){
+    //返回更新后的hosts
+    socket.on("code-run-result", function ( data ){
         socket.emit("change-hosts", {
-            name : theUpdateHostsGroup,
+            name : theName,
             content : data
         });
-        theTarget.removeAttr("disabled");
-        theUpdateHostsGroup = null;
-        theTarget = null;
-    }
+        socket.emit("get-hosts");
+    });
 });
 
 function getHostsText ( text ){

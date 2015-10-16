@@ -8,7 +8,7 @@ var s = {
         "command" : "dscacheutil -flushcache;discoveryutil udnsflushcache;killall -HUP mDNSResponder; echo update hosts success!"
     },
     "win32" : {
-        "backup_hosts" : "c:/users/isystem",
+        "backup_hosts" : "c:/users/isystem/",
         "system_hosts" : "c:/Windows/System32/drivers/etc/hosts",
         "command" : "ipconfig/flushdns"
     },

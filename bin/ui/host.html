@@ -6,6 +6,7 @@
     <link href="css/reset.css" type="text/css" rel="stylesheet" />
     <link href="css/common.css" type="text/css" rel="stylesheet" />
     <link href="css/index.css" type="text/css" rel="stylesheet" />
+    <link href="css/animate.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 
@@ -35,7 +36,7 @@
                     <% _.each(others, function ( el ){ %>
                     <div class="hosts-group group clearfix">
                         <p class="title" contenteditable="true"><%= el.name %></p>
-                        <div class="hosts-list <%= el.ban == 1 ? 'ban' : ''%><%= !!localStorage.getItem(el.name) ? ' noModify' : '' %>" data-name="<%= el.name %>" contenteditable="true">
+                        <div class="hosts-list <%= el.ban == 1 ? 'ban' : ''%><%= !!localStorage.getItem(el.name) ? ' noModify' : '' %> <%= el.name + '_container' %>" data-name="<%= el.name %>" contenteditable="true">
                             <% _.each( el.content.split("\n"), function ( els ){ %>
                             <div><%= els %></div>
                             <% }) %>

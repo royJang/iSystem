@@ -1,4 +1,4 @@
-## iSystem v0.4.2
+## iSystem v0.4.4
 
 > 可视化配置 和 动态更新 hosts, 支持 windows , linux 及 osx
 
@@ -64,6 +64,9 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 osx 	Yosemite 	x64    
 linux 	ubuntu 		x64              
 
+### change log
+
+> https://github.com/royJang/iSystem/blob/master/changelog.md
 
 ### License 
 

@@ -5,7 +5,8 @@ var EventEmitter = require('events').EventEmitter;
 var sandbox = {
     require : require,
     callback : callback,
-    console : console
+    console : console,
+    setTimeout : setTimeout
 };
 vm.createContext(sandbox);
 
@@ -31,7 +32,11 @@ function getVmResult ( sockets, data ){
     });
 
     d.run(function (){
-        vm.runInContext(String(data), sandbox);
+        try {
+            vm.runInContext(String(data), sandbox);
+        } catch( e ){
+            emitter.emit("error", new Error(e));
+        }
     });
 }
 
