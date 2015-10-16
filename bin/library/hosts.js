@@ -73,9 +73,13 @@ function set ( data, callback ){
     //写入hosts
     fs.writeFile( hostsPath, data, 'utf-8', function ( err ){
         if( err ) return callback( err );
-        exec( hostsCommand, function (){
-            return callback( null );
-        });
+        updateHosts( callback );
+    });
+}
+
+function updateHosts ( callback ){
+    exec( hostsCommand, function (){
+        return callback( null );
     });
 }
 

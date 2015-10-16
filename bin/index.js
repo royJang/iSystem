@@ -54,7 +54,9 @@ function cli ( port ){
                     content : data.content || "",
                     ban : 0
                 }, function (){
-                    sockets.emit("change-ok");
+                    refresh_hosts(function (){
+                        sockets.emit("change-ok");
+                    });
                 });
             }
             //分组名修改
