@@ -3,13 +3,34 @@
     z-index: 999; margin:auto; border:1px solid #ccc; border-radius: 3px; background: #fff;
 }
 
-.plugin-box .pluginName {
-    width:950px; margin:20px auto; outline: none; padding:7px 10px;
-    border-radius: 3px; border:1px solid #ccc; background: #2c2c2c; color:#fff;
-    display: block; font-size: 16px;
+.plugin-box .plugin-first-line {
+    width:950px; margin:20px auto; overflow: hidden; clear: both;
 }
+
+.plugin-box .plugin-first-line .pluginName {
+    outline: none; padding:7px 10px; width: 50%;
+    border-radius: 3px; border:1px solid #ccc; background: #2c2c2c; color:#fff;
+    font-size: 16px; float: left;
+}
+
+.plugin-box .plugin-first-line .get-other-script {
+    float: left; position: relative; margin-left:10px; font-size:14px;
+    text-align: center; 
+}
+
+.plugin-box .plugin-first-line .script-title {
+    background: #EF7645; color:#fff; border-radius: 3px; padding:7.5px 10px; cursor: pointer;
+    box-sizing:border-box; 
+}
+
+.plugin-box .plugin-first-line .great-script {
+    padding: 6px; border-radius: 3px; outline: none;
+    margin-left: 10px; border: 1px solid #ccc; 
+    background-color: #fff; position: absolute;
+}
+
 .plugin-box .plugin-code-area {
-    width:950px; margin:auto; border:1px solid #ccc;
+    width:950px; margin:auto; border:1px solid #ccc; clear: both;
 }
 
 .plugin-box .plugin-code-area > .pluginCode .pluginResult {

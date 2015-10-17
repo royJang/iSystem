@@ -1,0 +1,4 @@
+{
+	"racaljk" : "var request=require('request');request('https://raw.githubusercontent.com/racaljk/hosts/master/hosts',function(b,c,a){callback(a)});",
+	"highsea" : "var cheerio=require('cheerio'),request=require('request'),os=require('os');request('https://github.com/highsea/Hosts/blob/master/hosts',function(e,f,b){var c=cheerio.load(b),a='';c('.js-file-line-container').find('tr').each(function(b,d){a+=c(d).find('.blob-code').text()+os.EOL});callback(a)});"
+}

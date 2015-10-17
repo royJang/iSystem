@@ -1,27 +1,5 @@
 var socket = io.connect(location.host);
 
-function getParameter ( e ){
-    var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)", "i"),
-        n = location.search.substr(1).match(t);
-    return n != null ? decodeURIComponent(n[2]) : null
-}
-
-function paramsToJSON (){
-    var $u = location.search.slice(1),
-        r = {};
-    if( !!$u ){
-        $u = $u.split("&");
-    } else {
-        return r;
-    }
-
-    $u.forEach(function (el){
-        var $n = el.split("=");
-        r[$n[0]] = $n[1];
-    });
-    return r;
-}
-
 var editor = CodeMirror.fromTextArea(document.querySelector(".pluginCode"), {
     value : "function (){}",
     lineNumbers: true,
@@ -41,6 +19,13 @@ var codeReusultEditor = CodeMirror.fromTextArea(document.querySelector(".pluginR
 });
 
 codeReusultEditor.setOption("theme", "mbo");
+
+//
+
+var greatScriptWrap = $(".great-script");
+var greatScriptTpl = $("#great-script-tpl").text();
+
+
 
 var pluginName = $(".pluginName");
 

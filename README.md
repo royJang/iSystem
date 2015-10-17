@@ -46,10 +46,6 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
 使用 如： `var _ = require("underscore");`  来引用underscore
 
-
-### 一些优质的 hosts 来源 及 脚本
-
-> https://github.com/royJang/iSystem/blob/master/resource.md
  
 ### 帮助  
 > 1. isystem需要系统权限

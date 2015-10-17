@@ -25,7 +25,17 @@
         <div class="plugin-wrap">
             <div class="plugin-mask"></div>
             <div class="plugin-box">
-                <input type="text" placeholder="脚本名" class="pluginName"/>
+                <div class="plugin-first-line">
+                    <input type="text" placeholder="脚本名" class="pluginName"/>
+                    <div class="get-other-script">
+                        <p class="script-title">获取他人分享的脚本</p>
+                        <ul class="great-script">
+                            <script type="text/template" id="great-script-tpl">
+                                <li><%= s.name %><span class="script-content" style="display:none;"><%= s.content %></span></li>
+                            </script>
+                        </ul>   
+                    </div>
+                </div>
                 <div class="plugin-code-area clearfix">
                     <textarea class="pluginCode"></textarea>
                 </div>
