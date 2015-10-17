@@ -125,6 +125,10 @@ function cli ( port ){
         sockets.on("code-run", function ( data ){
             vm.get( sockets, data );
         });
+
+        sockets.on("get-others-script", function ( data ){
+            vm.getOtherScript( sockets );
+        });
     });
 }
 

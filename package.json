@@ -1,6 +1,6 @@
 {
   "name": "isystem",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "visual hosts for multiple platform ( windows , osx  and linux )",
   "main": "./bin/start.js",
   "scripts": {

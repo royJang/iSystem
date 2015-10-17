@@ -1,6 +1,8 @@
 var vm = require("vm");
 var domain = require("domain");
 var EventEmitter = require('events').EventEmitter;
+var request = require("request");
+var cheerio = require("cheerio");
 
 var sandbox = {
     require : require,
@@ -48,6 +50,21 @@ function callback(){
     $socket.emit("code-run-result", p.join(","));
 }
 
+function getOtherScript ( sockets ){
+    request("https://github.com/royJang/iSystem/blob/master/resource.json", function (err, res, body){
+        try {
+            var $ = cheerio.load(body);
+            var content = $(".js-file-line-container").text();
+            sockets.emit("other-scripts", !!content ? JSON.parse(content) : {
+                "Connection Failed" : ""
+            });
+        } catch (e){
+            sockets.emit("error", new Error(e));
+        }
+    })
+}
+
 module.exports = {
-	get : getVmResult
+	get : getVmResult,
+    getOtherScript : getOtherScript
 };

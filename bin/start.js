@@ -4,7 +4,7 @@ var fs = require("fs-extra");
 var program = require('commander');
 var isystem = require("./index");
 var config = require("./library/config");
-var version = "0.4.4";
+var version = "0.4.5";
 var serverListen = 3005;
 
 program

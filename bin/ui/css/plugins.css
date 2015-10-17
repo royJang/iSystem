@@ -4,7 +4,7 @@
 }
 
 .plugin-box .plugin-first-line {
-    width:950px; margin:20px auto; overflow: hidden; clear: both;
+    width:950px; height: 35px; margin:20px auto; clear: both;
 }
 
 .plugin-box .plugin-first-line .pluginName {
@@ -25,9 +25,19 @@
 
 .plugin-box .plugin-first-line .great-script {
     padding: 6px; border-radius: 3px; outline: none;
-    margin-left: 10px; border: 1px solid #ccc; 
+    border: 1px solid #ccc; margin-top:10px;
     background-color: #fff; position: absolute;
+    z-index: 9999; width:146px; display: none;
 }
+
+.plugin-box .plugin-first-line .great-script li {
+    height:30px; line-height: 30px; cursor: pointer;
+}
+
+.plugin-box .plugin-first-line .great-script li:hover {
+   background: #EF7645; color:#fff;
+}
+
 
 .plugin-box .plugin-code-area {
     width:950px; margin:auto; border:1px solid #ccc; clear: both;

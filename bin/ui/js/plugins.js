@@ -21,13 +21,37 @@ var codeReusultEditor = CodeMirror.fromTextArea(document.querySelector(".pluginR
 codeReusultEditor.setOption("theme", "mbo");
 
 //
+var pluginName = $(".pluginName");
 
 var greatScriptWrap = $(".great-script");
-var greatScriptTpl = $("#great-script-tpl").text();
+var greatScriptTpl = $("#great-script-tpl").html();
+var getScriptBtn = $(".script-title");
 
+getScriptBtn.on("click", function (e){
+    e.stopPropagation();
+    socket.emit("get-others-script");
+    greatScriptWrap.show();
+});
 
+socket.on("other-scripts", function (data){
+    greatScriptWrap.html(_.template(greatScriptTpl)({
+        key : _.keys(data),
+        value : _.values(data)
+    }));
+});
 
-var pluginName = $(".pluginName");
+greatScriptWrap.on("click", "li", function (e){
+    e.stopPropagation();
+    var target = $(e.currentTarget);
+    var title = target.find("span.script-child-title").text();
+    var content = target.find("span.script-content").text();
+    set$name(title);
+    editor.setValue(content);
+});
+
+$("body").on("click", function (){
+    greatScriptWrap.hide();
+});
 
 //修改
 pluginName.val(get$name());
@@ -84,6 +108,11 @@ function setStore (){
 
 function getStore (){
     return !!get$name() ? ( localStorage.getItem(get$name()) || "") : "";
+}
+
+function set$name ( name ){
+    location.hash = "#" + name;
+    pluginName.val(get$name());
 }
 
 function get$name(){
