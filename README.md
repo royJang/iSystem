@@ -1,10 +1,10 @@
 ## iSystem
 
-> 可视化配置 和 动态更新 hosts, 支持 windows , linux 及 osx
+> 一键翻墙, 支持 windows , linux 及 osx
 
 ### 安装
 
-> iSystem 依赖于Node.js ([下载]( https://nodejs.org/en/))( [安装教程](http://www.runoob.com/nodejs/nodejs-install-setup.html) )
+> iSystem 依赖于Node.js ( [安装教程](http://www.runoob.com/nodejs/nodejs-install-setup.html) )
 
 > 安装成功后，在命令行输入  `npm install isystem -g`
 

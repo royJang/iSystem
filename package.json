@@ -1,7 +1,7 @@
 {
   "name": "isystem",
   "version": "0.4.5",
-  "description": "可视化配置 和 动态更新 hosts, 支持 windows , linux 及 osx",
+  "description": "一键翻墙, 支持 windows , linux 及 osx",
   "main": "./bin/start.js",
   "scripts": {
     "start": "node ./bin/start.js"
