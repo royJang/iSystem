@@ -1,19 +1,28 @@
-## iSystem v0.4.5
+## iSystem
 
 > 可视化配置 和 动态更新 hosts, 支持 windows , linux 及 osx
 
 ### 安装
 
-> `npm install isystem -g`
+> iSystem 依赖于Node.js ([下载]( https://nodejs.org/en/))( [安装教程](http://www.runoob.com/nodejs/nodejs-install-setup.html) )
+
+> 安装成功后，在命令行输入  `npm install isystem -g`
 
 ### 使用
-> ` isystem `   
+>　命令行输入　` isystem `   
 
 出现 isystem listen at 3005 则说明启动成功
 
-### 插件
-> iSystem 允许自定义 `Javascript` 脚本 来快速更新Hosts,     
-> 脚本环境为`用户当前 Node.js` 版本      
+### 使用官方插件
+> iSystem 团队提供了一些插件可以让您一键获取最新的可用hosts                        
+> 内容来源于知名开源 hosts 列表                     
+
+> `1.` 点击 `获取他人分享的脚本` 按钮                         
+> `2.` 选择任意一项即可                           
+
+### 自定义插件
+> iSystem 允许自定义 `Javascript` 脚本 来快速更新Hosts,          
+> 脚本环境为`用户当前 Node.js` 版本       
 
 >  `1.` 输入 脚本名称 (  比如 : `cross-wall-google`  )    
 > ` 2.` 输入脚本内容    
@@ -31,9 +40,11 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 	});	        
 ```
 
-> `3.` 点击  `运行` 按钮， 脚本的运行结果会显示在下方,     
-> `4.` 返回结果正确后，请继续点击 `添加插件` 按钮，     
-> `5.`之后如有Hosts的更新，只需点击`更新` 按钮,就会自动更新最新的 Hosts          
+### 添加插件
+
+> 1. 点击  `运行` 按钮， 脚本的运行结果会显示在下方,        
+> 2. 返回结果正确后，请继续点击 `添加插件` 按钮，        
+> 3. 之后如有Hosts的更新，只需点击`更新` 按钮,就会自动更新最新的 Hosts          
 
 ### iSystem插件支持哪些 Node.js 库 ？
 
