@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var version = "0.4.5";
+var version = "0.4.7";
 var fs = require("fs-extra");
 var program = require('commander');
 var isystem = require("./index");

@@ -1,6 +1,6 @@
 {
   "name": "isystem",
-  "version": "0.4.5",
+  "version": "0.4.7",
   "description": "一键翻墙, 支持 windows , linux 及 osx",
   "main": "./bin/start.js",
   "scripts": {
@@ -10,7 +10,10 @@
     "isystem": "./bin/start.js"
   },
   "keywords": [
-    "visual hosts"
+    "cross wall",
+    "一键翻墙",
+    "翻墙",
+    "google"
   ],
   "author": "royJang",
   "license": "MIT",
@@ -19,9 +22,7 @@
     "commander": "^2.8.1",
     "express": "^4.13.3",
     "fs-extra": "^0.24.0",
-    "package": "^1.0.1",
     "request": "^2.65.0",
-    "shelljs": "^0.5.3",
     "socket.io": "^1.3.7",
     "underscore": "^1.8.3"
   },

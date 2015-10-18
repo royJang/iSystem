@@ -46,7 +46,7 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 > 2. 返回结果正确后，请继续点击 `添加插件` 按钮，        
 > 3. 之后如有Hosts的更新，只需点击`更新` 按钮,就会自动更新最新的 Hosts          
 
-### iSystem插件支持哪些 Node.js 库 ？
+### 插件支持哪些 Node.js 库 ？
 
 ```
 "cheerio"    :   "^0.19.0"
@@ -59,11 +59,11 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
  
 ### 帮助  
-> 1. isystem需要系统权限
+> 1. 使用 `sudo isystem` 提高系统权限
 > 2. 使用 `isystem -h` 来获取帮助           
-> 3. 查看当前版本 ` isystem -V `        
-> 4. 使用2000端口启动 isystem ` (sudo) isystem -p 2000 `         
-> 5. 清除所有config文件 ` isystem -c `      
+> 3. 使用 `isystem -V` 查看当前版本       
+> 4. 使用 `isystem -p 2000` 在2000端口下启动应用           
+> 5. 使用 `isystem -c` 清除所有分组文件      
 
 ### 已经通过测试的平台
 

@@ -5,7 +5,7 @@ var s = {
     "darwin" : {
         "backup_hosts" : "/usr/isystem/",
         "system_hosts" : "/etc/hosts",
-        "command" : "dscacheutil -flushcache;discoveryutil udnsflushcache;killall -HUP mDNSResponder; echo update hosts success!"
+        "command" : "dscacheutil -flushcache;discoveryutil udnsflushcache;killall -HUP mDNSResponder" 
     },
     "win32" : {
         "backup_hosts" : "c:/users/isystem/",
