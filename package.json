@@ -1,7 +1,7 @@
 {
   "name": "isystem",
   "version": "0.4.7",
-  "description": "一键翻墙, 支持 windows , linux 及 osx",
+  "description": "hosts for Internet Freedom, support windows , linux 及 osx",
   "main": "./bin/start.js",
   "scripts": {
     "start": "node ./bin/start.js"
@@ -11,9 +11,7 @@
   },
   "keywords": [
     "cross wall",
-    "一键翻墙",
-    "翻墙",
-    "google"
+    "翻墙"
   ],
   "author": "royJang",
   "license": "MIT",
