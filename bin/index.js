@@ -142,6 +142,24 @@ function cli ( port ){
                 sockets.emit("output-help", markdown(body.toString()));
             });
         });
+
+        //推送新版本及广告
+        request("https://raw.githubusercontent.com/royJang/iSystem/master/pushNewVersion.json", function (err,res,body){
+            if( body.toLowerCase() == "not found" ) return;
+            var lv = body && JSON.parse(body.toString());
+            var _version = lv.name;
+            var _info = lv.content;
+            var nowVersion = "0.4.7";
+
+            console.log(global.isystem_version);
+
+            if( _version != nowVersion ){
+                sockets.emit("new-version", {
+                    version : _version,
+                    info : _info
+                });
+            }
+        })
     });
 }
 
