@@ -1,6 +1,6 @@
 ## iSystem
 
-> 一键翻墙, 支持 windows , linux 及 osx
+> 一键翻墙, hosts管理, 支持 windows , linux 及 osx
 
 ### 安装
 
@@ -70,12 +70,12 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
 ### 已经通过测试的平台
 
-> windows 7 	    x64    
-windows 8           x64
-widows 10           x64
-osx 	Lion 	    x64
-osx     Yosemite    x64
-linux 	ubuntu 		x64              
+> windows 7 	    x64               
+windows 8           x64               
+widows 10           x64                
+osx 	Lion 	    x64             
+osx     Yosemite    x64                
+linux 	ubuntu 		x64                        
 
 ### change log
 

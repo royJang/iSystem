@@ -67,6 +67,18 @@
 
 <div class="system-prompt"></div>
 
+<div class="update-info">
+    <script type="text/template" id="update-info-tpl">
+        <p>v<%= version %>&nbsp;版本更新</p>
+        <ul>
+            <% info.forEach(function (el,i){ %>
+                <li><%= el %></li>
+            <% }) %>
+        </ul>
+        <button class="iKnow">我知道了</button>
+    </script>
+</div>
+
 <script src="js/lib/zepto.js"></script>
 <script src="js/lib/underscore.js"></script>
 <script src="js/lib/socket.io.js"></script>

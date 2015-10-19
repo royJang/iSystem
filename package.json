@@ -1,7 +1,7 @@
 {
   "name": "isystem",
   "version": "0.4.8",
-  "description": "hosts for Internet Freedom, support windows , linux 及 osx",
+  "description": "一键翻墙, hosts管理, 支持 windows , linux 及 osx",
   "main": "./bin/start.js",
   "scripts": {
     "start": "node ./bin/start.js"

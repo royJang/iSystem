@@ -49,3 +49,26 @@ body {
 .stage {
     margin-top:20px; box-sizing: border-box; background: #fff;
 }
+
+.update-info {
+    position: fixed; left:0; top:0; bottom:0; right:0; margin:auto; width:400px; height:300px;
+    background: #fff; border:1px solid #ccc; border-radius: 3px; box-shadow: 2px 1px 10px #ccc;
+    text-align: center; display: none;
+}
+
+.update-info p {
+    text-align: center; padding:10px 0;
+}
+
+.update-info ul {
+    text-align: left; padding:10px; box-sizing: border-box;
+    line-height: 32px; width:300px; word-wrap: break-word;
+    margin:auto; height:200px; overflow-y: auto;
+}
+
+.update-info ul li {}
+
+.update-info .iKnow {
+    text-align: center; border:1px solid #ccc; border-radius: 3px; background: #008800;
+    color:#fff; width:120px; height:35px; font-size: 14px; outline: none;
+}

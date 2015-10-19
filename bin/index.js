@@ -127,6 +127,9 @@ function cli ( port ){
             });
         }
 
+        //about version
+        sockets.emit("version", global.isystem_version);
+
         //about plugins
         sockets.on("code-run", function ( data ){
             vm.get( sockets, data );
@@ -149,11 +152,8 @@ function cli ( port ){
             var lv = body && JSON.parse(body.toString());
             var _version = lv.name;
             var _info = lv.content;
-            var nowVersion = "0.4.7";
 
-            console.log(global.isystem_version);
-
-            if( _version != nowVersion ){
+            if( _version != global.isystem_version ){
                 sockets.emit("new-version", {
                     version : _version,
                     info : _info

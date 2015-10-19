@@ -11,12 +11,20 @@ socket.on("system-error", function (data){
     }
 });
 
+socket.on("version", function (data){
+    $(".logo").html("iSystem v" + data);
+});
+
 socket.on("pull-resource-error", function (){
     greatScriptWrap.html("<div><p>访问github超时</p><p>请刷新页面重试！</p></div>");
 });
 
 socket.on("new-version", function (data){
-    console.log(data);
+    $(".update-info").show().html(_.template($("#update-info-tpl").html())(data));
+});
+
+$(".update-info").on("click", ".iKnow", function (){
+    $(".update-info").hide();
 });
 
 function showConfirm ( data, warning ){
@@ -30,3 +38,4 @@ function showConfirm ( data, warning ){
         _prompt.hide();
     }, 2000)
 }
+
