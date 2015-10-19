@@ -10,8 +10,11 @@
     "isystem": "./bin/start.js"
   },
   "keywords": [
+    "hosts",
+    "hosts manager",
     "cross wall",
-    "翻墙"
+    "翻墙",
+    "internet freedom"
   ],
   "author": "royJang",
   "license": "MIT",
