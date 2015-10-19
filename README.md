@@ -18,14 +18,16 @@
 > 内容来源于知名开源 hosts 列表                     
 
 > `1.` 点击 `获取他人分享的脚本` 按钮                         
-> `2.` 选择任意一项即可                           
+> `2.` 选择任意一项即可    
+> `3.` 添加插件     
 
 ### 自定义插件
 > iSystem 允许自定义 `Javascript` 脚本 来快速更新Hosts,          
 > 脚本环境为`用户当前 Node.js` 版本       
 
->  `1.` 输入 脚本名称 (  比如 : `cross-wall-google`  )    
-> ` 2.` 输入脚本内容    
+> `1.` 输入 脚本名称 (  比如 : `cross-wall-google`  )    
+> `2.` 输入脚本内容      
+> `3.` 添加插件     
 
 ```
 var request = require("request");        
@@ -42,8 +44,8 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
 ### 添加插件
 
-> 1. 点击  `运行` 按钮， 脚本的运行结果会显示在下方,        
-> 2. 返回结果正确后，请继续点击 `添加插件` 按钮，        
+> 1. 点击 `运行` 按钮， 等待稍许, 脚本的运行结果会显示在下方,        
+> 2. 确认返回结果正确后，请继续点击 `添加插件` 按钮，        
 > 3. 之后如有Hosts的更新，只需点击`更新` 按钮,就会自动更新最新的 Hosts          
 
 ### 插件支持哪些 Node.js 库 ？
@@ -59,7 +61,8 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
  
 ### 帮助  
-> 1. 使用 `sudo isystem` 提高系统权限
+> 1. linux 及 osx 用户，使用 `sudo isystem` 提高权限
+> 2. windows 用户，使用 `以管理员身份运行` 提高权限
 > 2. 使用 `isystem -h` 来获取帮助           
 > 3. 使用 `isystem -V` 查看当前版本       
 > 4. 使用 `isystem -p 2000` 在2000端口下启动应用           
@@ -68,7 +71,10 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 ### 已经通过测试的平台
 
 > windows 7 	    x64    
-osx 	Yosemite 	x64    
+windows 8           x64
+widows 10           x64
+osx 	Lion 	    x64
+osx     Yosemite    x64
 linux 	ubuntu 		x64              
 
 ### change log

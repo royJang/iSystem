@@ -73,10 +73,14 @@ socket.on("code-run-result", function ( data ){
 	codeReusultEditor.setValue( data ? data : "undefined" );
 });
 
-var $complileText = "Compile...";
+var $complileText = "正在获取结果，请稍等...";
 
 //运行代码
 $(".code-run").on("click", function (){
+    var code = getStore(),
+        name = get$name();
+    if( !name ) return codeReusultEditor.setValue("脚本名不能为空");
+    if( !code ) return codeReusultEditor.setValue("脚本内容不能为空!");
     codeReusultEditor.setValue($complileText);
     socket.emit("code-run", getStore());
     setStore();

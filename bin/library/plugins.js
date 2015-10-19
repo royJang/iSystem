@@ -3,6 +3,7 @@ var domain = require("domain");
 var EventEmitter = require('events').EventEmitter;
 var request = require("request");
 var cheerio = require("cheerio");
+var http = require("http");
 
 var sandbox = {
     require : require,
@@ -51,16 +52,28 @@ function callback(){
 }
 
 function getOtherScript ( sockets ){
-    request("https://github.com/royJang/iSystem/blob/master/resource.json", function (err, res, body){
-        try {
-            var $ = cheerio.load(body);
-            var content = $(".js-file-line-container").text();
-            sockets.emit("other-scripts", !!content ? JSON.parse(content) : {
-                "Connection Failed" : ""
-            });
-        } catch (e){
-            sockets.emit("error", new Error(e));
-        }
+
+    var d = domain.create();
+    var emitter = new EventEmitter();
+
+    d.on("error", function ( err ){
+        emitter.emit("error", new Error(err));
+    });
+
+    emitter.on("error", function (err){
+        sockets.emit("pull-resource-error", {});
+    });
+
+    d.run(function (){
+        request("https://raw.githubusercontent.com/royJang/iSystem/master/resource.json", function (err, res, body){
+            try {
+                sockets.emit("other-scripts", !!body ? JSON.parse(body) : {
+                    "Connection Failed" : ""
+                });
+            } catch (e){
+                sockets.emit("error", new Error(e));
+            }
+        })
     })
 }
 

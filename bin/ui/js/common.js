@@ -11,6 +11,10 @@ socket.on("system-error", function (data){
     }
 });
 
+socket.on("pull-resource-error", function (){
+    greatScriptWrap.html("<div><p>访问github超时</p><p>请刷新页面重试！</p></div>");
+});
+
 function showConfirm ( data, warning ){
     var _prompt = $(".system-prompt");
     _prompt.removeClass("warning");

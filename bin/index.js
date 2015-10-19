@@ -6,6 +6,8 @@ var express = require("express");
 var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
+var markdown = require( "marked" );
+var request = require("request");
 
 var hosts = require("./library/hosts");
 var vm = require("./library/plugins");
@@ -39,6 +41,10 @@ function cli ( port ){
 
     app.get("/plugins", function (req, res){
         res.sendFile(__dirname + "/ui/plugins.html");
+    });
+
+    app.get("/help", function (req,res){
+        res.sendFile(__dirname + "/ui/help.html");
     });
 
     http.listen( port ,function (){
@@ -128,6 +134,13 @@ function cli ( port ){
 
         sockets.on("get-others-script", function ( data ){
             vm.getOtherScript( sockets );
+        });
+
+        //about help
+        sockets.on("get-help", function (){
+            request("https://raw.githubusercontent.com/royJang/iSystem/master/README.md", function (err, res, body){
+                sockets.emit("output-help", markdown(body.toString()));
+            });
         });
     });
 }
