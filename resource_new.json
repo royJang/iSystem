@@ -1,0 +1,18 @@
+{
+	"racaljk" : {
+		"name" : "racaljk (推荐)",
+		"code" : "var request=require('request');request('https://raw.githubusercontent.com/racaljk/hosts/master/hosts',function(b,c,a){callback(a)});"
+	},
+	"highsea" : {
+		"name" : "highsea",
+		"code" : "var request=require('request');request('https://raw.githubusercontent.com/highsea/Hosts/master/hosts',function(b,c,a){callback(a)});"
+	},
+	"txthinking" : {
+		"name" : "txthinking",
+		"code" : "var request=require('request');request('https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts',function(b,c,a){callback(a)});",
+    },
+    "StevenBlack"  : {
+    	"name" : "StevenBlack",
+    	"code" : "var request=require('request');request('https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts',function(b,c,a){callback(a)});"
+    }
+}
