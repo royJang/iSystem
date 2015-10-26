@@ -51,7 +51,7 @@ function callback(){
     $socket.emit("code-run-result", p.join(","));
 }
 
-function getOtherScript ( sockets ){
+function getOtherShareScript ( sockets ){
 
     var d = domain.create();
     var emitter = new EventEmitter();
@@ -65,19 +65,34 @@ function getOtherScript ( sockets ){
     });
 
     d.run(function (){
-        request("https://raw.githubusercontent.com/royJang/iSystem/master/resource.json", function (err, res, body){
-            try {
-                sockets.emit("other-scripts", !!body ? JSON.parse(body) : {
-                    "Connection Failed" : ""
-                });
-            } catch (e){
-                sockets.emit("error", new Error(e));
-            }
-        })
+
+        var _version = global.isystem_version.split(".");
+        var master_version = _version[0],
+            second_version = _version[1],
+            fork_version = _version[2];
+
+        if( master_version > 0  && second_version >= 4 && fork_version >= 9 ){
+            request("https://raw.githubusercontent.com/royJang/iSystem/master/resource_news.json", emit_version_info)
+        } else {
+            request("https://raw.githubusercontent.com/royJang/iSystem/master/resource.json", emit_version_info)
+        }
     })
+
+    function emit_version_info (err, res, body){
+        if( err ){
+           return sockets.emit("error", e); 
+        }
+        try {
+            sockets.emit("other-scripts", !!body ? JSON.parse(body) : {
+                "Connection Failed" : ""
+            });
+        } catch (e){
+            sockets.emit("error", new Error(e));
+        }
+    }
 }
 
 module.exports = {
 	get : getVmResult,
-    getOtherScript : getOtherScript
+    getOtherScript : getOtherShareScript
 };

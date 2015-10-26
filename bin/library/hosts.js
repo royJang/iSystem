@@ -45,7 +45,6 @@ function get ( callback ){
 
                 var $n = el.replace(/\.json/, "");
 
-                //default�ļ����������
                 if( $n !== DefaultsName ){
                     fl.push({
                         name : $n,
@@ -70,11 +69,13 @@ function get ( callback ){
 }
 
 function set ( data, callback ){
-    //写入hosts
-    fs.writeFile( hostsPath, data, 'utf-8', function ( err ){
-        if( err ) return callback( err );
-        updateHosts( callback );
-    });
+    if( !!data && data != "undefined" ){
+        //写入hosts
+        fs.writeFile( hostsPath, data, 'utf-8', function ( err ){
+            if( err ) return callback( err );
+            updateHosts( callback );
+        });
+    }
 }
 
 function updateHosts ( callback ){

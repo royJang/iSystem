@@ -142,14 +142,17 @@ function cli ( port ){
         //about help
         sockets.on("get-help", function (){
             request("https://raw.githubusercontent.com/royJang/iSystem/master/README.md", function (err, res, body){
+                if( !body || body.toLowerCase() == "not found" ) return sockets.emit("get-help-error");
                 sockets.emit("output-help", markdown(body.toString()));
             });
         });
 
         //推送新版本及广告
         request("https://raw.githubusercontent.com/royJang/iSystem/master/pushNewVersion.json", function (err,res,body){
-            if( body.toLowerCase() == "not found" ) return;
-            var lv = body && JSON.parse(body.toString());
+            //becase of the network reason
+            //body maybe not exist, don't push
+            if( !body || body.toLowerCase() == "not found" ) return;
+            var lv = JSON.parse(body.toString());
             var _version = lv.name;
             var _info = lv.content;
 

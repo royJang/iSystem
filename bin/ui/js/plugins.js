@@ -34,9 +34,13 @@ getScriptBtn.on("click", function (e){
 });
 
 socket.on("other-scripts", function (data){
+
+    if( !data ) return;
+
+    var v = _.values(data);
     greatScriptWrap.html(_.template(greatScriptTpl)({
-        key : _.keys(data),
-        value : _.values(data)
+        name : v.name,
+        code : v.url
     }));
 });
 
