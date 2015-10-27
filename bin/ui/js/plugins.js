@@ -35,13 +35,11 @@ getScriptBtn.on("click", function (e){
 
 socket.on("other-scripts", function (data){
 
-    if( !data ) return;
+console.log(JSON.parse(data));
 
     var v = _.values(data);
-    greatScriptWrap.html(_.template(greatScriptTpl)({
-        name : v.name,
-        code : v.url
-    }));
+    console.log(v);
+    greatScriptWrap.html(_.template(greatScriptTpl)(v));
 });
 
 greatScriptWrap.on("click", "li", function (e){

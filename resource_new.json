@@ -9,7 +9,7 @@
 	},
 	"txthinking" : {
 		"name" : "txthinking",
-		"code" : "var request=require('request');request('https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts',function(b,c,a){callback(a)});",
+		"code" : "var request=require('request');request('https://raw.githubusercontent.com/txthinking/google-hosts/master/hosts',function(b,c,a){callback(a)});"
     },
     "StevenBlack"  : {
     	"name" : "StevenBlack",

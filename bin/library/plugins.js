@@ -71,25 +71,18 @@ function getOtherShareScript ( sockets ){
             second_version = _version[1],
             fork_version = _version[2];
 
-        if( master_version > 0  && second_version >= 4 && fork_version >= 9 ){
-            request("https://raw.githubusercontent.com/royJang/iSystem/master/resource_news.json", emit_version_info)
-        } else {
-            request("https://raw.githubusercontent.com/royJang/iSystem/master/resource.json", emit_version_info)
-        }
-    })
+        var _url = (master_version >= 0  && second_version >= 4 && fork_version > 9) 
+                ? "https://raw.githubusercontent.com/royJang/iSystem/master/resource_new.json"
+                : "https://raw.githubusercontent.com/royJang/iSystem/master/resource.json";
 
-    function emit_version_info (err, res, body){
-        if( err ){
-           return sockets.emit("error", e); 
-        }
-        try {
-            sockets.emit("other-scripts", !!body ? JSON.parse(body) : {
-                "Connection Failed" : ""
-            });
-        } catch (e){
-            sockets.emit("error", new Error(e));
-        }
-    }
+         request(_url, function (err, res, body){
+            try {
+                sockets.emit("other-scripts", body.toString());
+            } catch (e){
+                sockets.emit("error", new Error(e));
+            }
+         });
+    })
 }
 
 module.exports = {
