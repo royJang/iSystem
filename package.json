@@ -1,6 +1,6 @@
 {
   "name": "isystem",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "description": "一键翻墙, hosts管理, 支持 windows , linux 及 osx",
   "main": "./bin/start.js",
   "scripts": {

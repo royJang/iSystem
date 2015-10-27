@@ -6,7 +6,7 @@ var config = require("./config");
 var hostsPath = config["system_hosts"];
 var hostsCommand = config["command"];
 
-var configHostsPath = config["backup_hosts"],
+var configHostsPath = global.save_path || config["backup_hosts"],
     DefaultsName = "Default";
 
 function getOriginHosts ( callback ){

@@ -3,7 +3,7 @@ var platform = os.platform();
 
 var s = {
     "darwin" : {
-        "backup_hosts" : "/usr/isystem/",
+        "backup_hosts" : "/Applications/isystem/",
         "system_hosts" : "/etc/hosts",
         "command" : "dscacheutil -flushcache;discoveryutil udnsflushcache;killall -HUP mDNSResponder" 
     },

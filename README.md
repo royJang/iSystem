@@ -13,6 +13,15 @@
 
 出现 isystem listen at 3005 则说明启动成功
 
+### Note
+> 1. linux 及 osx 用户，使用 `sudo isystem` 提高权限
+> 2. windows 用户，使用 `以管理员身份运行` 打开命令提示行,提高权限
+> 2. 使用 `isystem -h` 来获取帮助           
+> 3. 使用 `isystem -V` 查看当前版本       
+> 4. 使用 `isystem -p 2000` 在2000端口下启动应用           
+> 5. 使用 `isystem -c` 清除所有分组文件  
+> 6. 使用 `isystem -m` 将iSystem备份文件放入低权限文件夹保存 ( osx Only )
+
 ### 使用官方插件
 > iSystem 团队提供了一些插件可以让您一键获取最新的可用hosts                        
 > 内容来源于知名开源 hosts 列表                     
@@ -59,22 +68,13 @@ request("https://raw.githubusercontent.com/racaljk/hosts/master/hosts",
 
 使用 如： `var _ = require("underscore");`  来引用underscore
 
- 
-### 帮助  
-> 1. linux 及 osx 用户，使用 `sudo isystem` 提高权限
-> 2. windows 用户，使用 `以管理员身份运行` 提高权限
-> 2. 使用 `isystem -h` 来获取帮助           
-> 3. 使用 `isystem -V` 查看当前版本       
-> 4. 使用 `isystem -p 2000` 在2000端口下启动应用           
-> 5. 使用 `isystem -c` 清除所有分组文件      
-
 ### 已经通过测试的平台
 
 > windows 7 	    x64               
 windows 8           x64               
 widows 10           x64                
 osx 	Lion 	    x64             
-osx     Yosemite    x64                
+osx     Yosemite    x64                  
 linux 	ubuntu 		x64                        
 
 ### change log

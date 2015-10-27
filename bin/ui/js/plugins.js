@@ -34,18 +34,19 @@ getScriptBtn.on("click", function (e){
 });
 
 socket.on("other-scripts", function (data){
-
-console.log(JSON.parse(data));
-
+    data = data && JSON.parse(data);
     var v = _.values(data);
-    console.log(v);
-    greatScriptWrap.html(_.template(greatScriptTpl)(v));
+    var k = _.keys(data);
+    greatScriptWrap.html(_.template(greatScriptTpl)({
+        v : v,
+        k : k
+    }));
 });
 
 greatScriptWrap.on("click", "li", function (e){
     e.stopPropagation();
     var target = $(e.currentTarget);
-    var title = target.find("span.script-child-title").text();
+    var title = target.find("span.script-child-title").attr("data-title");
     var content = target.find("span.script-content").text();
     set$name(title);
     editor.setValue(content);
