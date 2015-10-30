@@ -23,7 +23,7 @@ program
         });
     })
     .option('-m', '将旧的Hosts配置文件迁移到新的目录', function ( path ){
-        if( os.platform != "darwin" ) return console.log("目前只支持Mac平台的迁移!");
+        if( os.platform() != "darwin" ) return console.log("目前只支持Mac平台的迁移!");
         fs.copy('/usr/isystem/', '/applications/isystem', function (err){
             if(err) return console.log(err);
             return console.log('迁移成功');
